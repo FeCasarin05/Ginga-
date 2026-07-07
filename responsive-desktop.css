@@ -1,0 +1,974 @@
+/* ================================================================
+   GINGA! – Responsividade Desktop & Smart TV
+   Layout: Topbar horizontal unificada no topo + conteúdo abaixo
+   ================================================================ */
+
+/* ----------------------------------------------------------------
+   BASE GLOBAL – elementos exclusivos de cada breakpoint
+   O hero-desktop e splash-actions-overlay ficam ocultos no mobile
+---------------------------------------------------------------- */
+.hero-desktop        { display: none; }   /* oculto no mobile */
+.splash-actions-overlay { display: none; } /* oculto no mobile */
+/* hero-mobile e actions-mobile são exibidos normalmente no mobile (display padrão) */
+
+
+/* ----------------------------------------------------------------
+   TABLET 600-768px: remove moldura, mantém layout vertical
+---------------------------------------------------------------- */
+@media (min-width: 600px) and (max-width: 768px) {
+  .shell {
+    background: var(--clr-bg-main, #FDFBF4) !important;
+    padding: 0 !important;
+  }
+
+  .screen {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   DESKTOP – 769px em diante
+   Topbar horizontal completa: logo | nav central | perfil+config
+---------------------------------------------------------------- */
+@media (min-width: 769px) {
+
+  /* Remove moldura de celular */
+  .shell {
+    padding: 0;
+    background: var(--clr-bg-main, #FDFBF4);
+    align-items: stretch;
+  }
+
+  .screen {
+    max-width: 100% !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Telas com app-shell: empilha em coluna */
+  .ritmos-screen,
+  .trilha-screen,
+  .aprender-screen,
+  .sobre-screen,
+  .ginga-screen,
+  .apelido-screen,
+  .conquistas-screen,
+  .perfil-screen,
+  .recompensa-screen,
+  .glossario-screen,
+  .historia-screen,
+  .danca-screen {
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     GINGA-TOPBAR: torna-se barra horizontal no topo,
+     com largura total. O logo fica à esquerda e
+     o perfil + config ficam à direita.
+  ══════════════════════════════════════════════════════════ */
+  .ginga-topbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 72px;
+    flex-direction: row;
+    justify-content: flex-start; /* título fica na esquerda junto da seta */
+    align-items: center;
+    padding: 0 32px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: var(--clr-bg-main, #FDFBF4);
+    z-index: 300;
+    flex-shrink: 0;
+    gap: 12px; /* espaço entre seta e GINGA+ */
+    border-right: none;
+  }
+
+  .ginga-topbar-title {
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-top: 0;
+  }
+
+  /* Ações à direita: empurradas para o canto direito com margin-left: auto */
+  .ginga-topbar-actions {
+    flex-direction: row !important;
+    gap: 14px;
+    margin-top: 0 !important;
+    margin-left: auto; /* empurra config + perfil para o canto direito */
+    width: auto !important;
+    align-items: center;
+  }
+
+  .btn-back,
+  .btn-settings {
+    display: flex;
+  }
+
+  .btn-back svg,
+  .btn-settings svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* Avatar de perfil: sempre visível e acessível */
+  .user-avatar-wrap {
+    width: 44px;
+    height: 44px;
+    display: block;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     BOTTOM-NAV: move para o centro do topbar horizontalmente.
+     Fica sobreposta ao topbar usando position: fixed + pointer-events.
+  ══════════════════════════════════════════════════════════ */
+  .bottom-nav {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+    height: 72px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+    padding: 0;
+    z-index: 400;
+    pointer-events: none; /* cliques passam para baixo exceto nos itens */
+    gap: 0;
+  }
+
+  /* Itens de navegação: abas horizontais com sublinhado */
+  .nav-item {
+    pointer-events: auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 72px;
+    padding: 0 22px;
+    border-radius: 0;
+    min-width: auto;
+    gap: 8px;
+    /* Sublinhado no ativo */
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid transparent;
+    transition: border-color 0.2s ease, background 0.15s ease;
+    text-decoration: none;
+  }
+
+  .nav-item:hover {
+    background: rgba(181, 32, 38, 0.06);
+    border-bottom-color: rgba(181, 32, 38, 0.25);
+  }
+
+  .nav-item.active {
+    border-bottom-color: var(--clr-red, #B52026);
+    background: rgba(181, 32, 38, 0.04);
+  }
+
+  /* Cancela o efeito de "saltar" do ícone no mobile */
+  .nav-item.active .nav-icon-wrap {
+    transform: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    width: 28px;
+    height: 28px;
+  }
+
+  .nav-icon-wrap {
+    width: 28px;
+    height: 28px;
+    border-radius: 0;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    filter: none;
+  }
+
+  /* Cancela filtro branco do ícone ativo */
+  .nav-item.active .nav-icon {
+    filter: none;
+  }
+
+  /* Label sempre visível, sem deslocamento vertical */
+  .nav-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #9A8A85;
+    transform: none !important;
+    display: block;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-item.active .nav-label {
+    color: var(--clr-red, #B52026);
+    font-weight: 800;
+    transform: none !important;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     MAIN CONTENT: ocupa o resto da altura abaixo do topbar
+     ⚠️ Inclui TODOS os nomes de classe reais dos HTMLs
+  ══════════════════════════════════════════════════════════ */
+  .ritmos-main,
+  .trilha-main,
+  .aprender-main,
+  .sobre-main,
+  .sobre-main-content,       /* sobre.html usa esta */
+  .ginga-main,
+  .apelido-main,
+  .perfil-main,
+  .perfil-main-content,      /* perfil.html usa esta */
+  .conquistas-main-content,  /* conquistas.html */
+  .glossario-main-content,   /* glossario.html */
+  .historia-main,            /* historia-*.html */
+  .recompensa-main {         /* recompensa*.html */
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 40px;
+    height: calc(100vh - 72px);
+    width: 100%;
+  }
+
+  /* ── PÁGINAS INTERNAS: padding lateral confortável, largura total ── */
+  .glossario-main-content,
+  .historia-main,
+  .sobre-main-content,
+  .conquistas-main-content {
+    padding-left: 48px;
+    padding-right: 48px;
+    width: 100%;
+  }
+
+  .perfil-main-content {
+    padding-left: 48px;
+    padding-right: 48px;
+    width: 100%;
+  }
+
+  /* ── APRENDER: carousel vira grid 2x2 no desktop ── */
+  .aprender-carousel-container {
+    overflow-x: visible;
+  }
+
+  .aprender-carousel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 40px 32px;
+    overflow-x: visible;
+  }
+
+  .aprender-card {
+    width: 100%;
+    flex: none;
+    min-height: 220px;
+    border-radius: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .aprender-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  }
+
+  .aprender-header {
+    padding: 32px 40px 20px;
+    gap: 24px;
+  }
+
+  .aprender-title {
+    font-size: 56px;
+  }
+
+  /* ── DANÇA: ocupa tela inteira (player de vídeo) ── */
+  .danca-screen {
+    height: 100vh !important;
+    overflow: hidden;
+  }
+
+
+
+  /* ══════════════════════════════════════════════════════════
+     RITMOS: grade 2×2 de cards + hero expandido
+  ══════════════════════════════════════════════════════════ */
+  .ritmos-hero {
+    padding: 32px 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ritmos-title {
+    font-size: 52px;
+  }
+
+  .ritmos-subtitle {
+    font-size: 18px;
+  }
+
+  .ritmos-hero-img {
+    width: 220px;
+  }
+
+  .ritmos-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    padding: 0 40px 40px;
+  }
+
+  .ritmo-card {
+    min-height: 150px;
+    border-radius: 24px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .ritmo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
+  .ritmo-card-content h2 {
+    font-size: 42px;
+  }
+
+  .ritmo-card-content p {
+    font-size: 14px;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     TELA SPLASH – controle de visibilidade por dispositivo
+  ══════════════════════════════════════════════════════════ */
+
+  /* No DESKTOP: mostra o SVG, oculta o PNG e o painel de botões mobile */
+  .hero-mobile  { display: none !important; }
+  .actions-mobile { display: none !important; }
+  .hero-desktop { display: flex !important; }
+
+  /* Screen da splash: SVG ocupa tudo */
+  .screen:has(.hero-desktop) {
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Hero desktop: SVG cobre a tela inteira como imagem */
+  .hero-desktop {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: stretch;
+  }
+
+  /* SVG esticado para cobrir a tela completamente */
+  .splash-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* preenche sem distorcer, cortando nas bordas se necessário */
+    object-position: center center;
+    display: block;
+  }
+
+  /* Overlay de botões no canto inferior — sobrepostos ao SVG */
+  .splash-actions-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 32px 80px 40px;
+    /* Gradiente sutil para os botões se destacarem do vermelho */
+    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 100%);
+  }
+
+  .btn-primary {
+    max-width: 340px;
+    width: 100%;
+    padding: 20px 36px;
+    font-size: 17px;
+  }
+
+  /* Botão secundário em branco translúcido sobre o SVG vermelho */
+  .btn-secondary-light {
+    color: #FFF !important;
+    border-bottom-color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 15px;
+    white-space: nowrap;
+  }
+
+  .btn-secondary-light:hover {
+    color: rgba(255,255,255,0.85) !important;
+  }
+
+  .btn-secondary-light::after {
+    background: #FFF !important;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     TELA DE LOGIN – desktop: tela inteira, formulário centralizado
+  ══════════════════════════════════════════════════════════ */
+
+  /* Screen: layout de coluna, centraliza verticalmente */
+  .screen:has(.login-header):has(.login-form-container) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    background: var(--clr-bg-main, #FDFBF4);
+    min-height: 100vh;
+    height: auto;
+    padding: 40px 20px;
+  }
+
+  /* Header: só o logo + título, sem fundo colorido, compact */
+  .screen:has(.login-header) .login-header {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+    min-height: auto;
+    background: none;
+    padding: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Título e subtítulo: cores originais (vermelho/cinza) */
+  .screen:has(.login-header) .login-title {
+    color: var(--clr-red, #B52026);
+    font-size: 48px;
+  }
+
+  .screen:has(.login-header) .login-subtitle {
+    color: #7A6A65;
+    font-size: 16px;
+  }
+
+  .screen:has(.login-header) .login-logo-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Formulário: card centralizado de largura fixa */
+  .screen:has(.login-header) .login-form-container {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+    min-height: auto;
+    border-radius: 24px;
+    margin: 0;
+    padding: 40px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: visible;
+    background: #FCF4F4;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+  }
+
+  /* Footer: link de criar conta, sem padding extra */
+  .screen:has(.login-header) .login-footer {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+    padding: 24px 0 0 0;
+    text-align: center;
+  }
+
+
+  /* ══════════════════════════════════════════════════════════
+     TELA CRIAR CONTA – desktop: tela inteira, formulário centralizado
+  ══════════════════════════════════════════════════════════ */
+
+  .screen:has(.form-header):has(.form-container) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    background: var(--clr-bg-main, #FDFBF4);
+    min-height: 100vh;
+    height: auto;
+    padding: 40px 20px;
+  }
+
+  /* Header: título sem fundo colorido */
+  .screen:has(.form-header) .form-header {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+    min-height: auto;
+    background: none;
+    padding: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Título e subtítulo: cores originais */
+  .screen:has(.form-header) .form-header .blob-title h1 {
+    color: var(--clr-red, #B52026);
+    font-size: 40px;
+  }
+
+  .screen:has(.form-header) .form-header .subtitle {
+    color: #7A6A65;
+    font-size: 16px;
+  }
+
+  /* Formulário: card centralizado */
+  .screen:has(.form-header) .form-container {
+    flex: none;
+    width: 100%;
+    max-width: 560px;
+    min-height: auto;
+    border-radius: 24px;
+    padding: 40px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    overflow-y: visible;
+    background: #FFF;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     INPUTS e FORMULÁRIOS: maiores para desktop
+  ══════════════════════════════════════════════════════════ */
+  .input-group input {
+    padding: 16px 18px;
+    font-size: 16px;
+    border-radius: 14px;
+  }
+
+  .input-group label {
+    font-size: 15px;
+  }
+
+  .signup-form {
+    gap: 18px;
+  }
+
+  .btn-primary-red {
+    padding: 18px;
+    font-size: 22px;
+    margin-top: 14px;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     GINGA CAROUSEL: cards maiores
+  ══════════════════════════════════════════════════════════ */
+  .ginga-header {
+    padding: 32px 40px 20px;
+  }
+
+  .ginga-title {
+    font-size: 52px;
+  }
+
+  .carousel-container {
+    padding: 20px 40px 40px;
+    gap: 24px;
+  }
+
+  .ginga-card {
+    flex: 0 0 280px;
+  }
+
+  .card-image-bg {
+    height: 260px;
+  }
+
+  /* ══════════════════════════════════════════════════════════
+     TRILHA
+  ══════════════════════════════════════════════════════════ */
+  .trilha-hero {
+    padding: 32px 40px 24px;
+  }
+
+  .trilha-title {
+    font-size: 48px;
+  }
+
+  .trilha-hero-img {
+    max-width: 380px;
+  }
+
+  .trilha-path-container {
+    padding: 40px 80px;
+  }
+
+  .node-active {
+    width: 86px;
+    height: 86px;
+  }
+
+  .node-completed {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   WIDESCREEN – 1200px (monitores maiores, laptops 1440p)
+---------------------------------------------------------------- */
+@media (min-width: 1200px) {
+
+  .ginga-topbar {
+    height: 80px;
+    padding: 0 48px;
+  }
+
+  .ginga-topbar-title {
+    font-size: 36px;
+  }
+
+  .bottom-nav {
+    height: 80px;
+  }
+
+  .nav-item {
+    height: 80px;
+    padding: 0 26px;
+    gap: 10px;
+  }
+
+  .nav-label {
+    font-size: 14px;
+  }
+
+  .nav-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .nav-icon-wrap {
+    width: 30px;
+    height: 30px;
+  }
+
+  .ritmos-main, .trilha-main, .aprender-main,
+  .sobre-main, .sobre-main-content, .ginga-main,
+  .apelido-main, .perfil-main, .perfil-main-content,
+  .conquistas-main-content, .glossario-main-content,
+  .historia-main, .recompensa-main {
+    height: calc(100vh - 80px);
+  }
+
+  .ritmos-list {
+    gap: 24px;
+    padding: 0 56px 56px;
+  }
+
+  .ritmo-card {
+    min-height: 180px;
+    border-radius: 28px;
+  }
+
+  .ritmo-card-content h2 {
+    font-size: 52px;
+  }
+
+  .ritmos-hero-img {
+    width: 260px;
+  }
+
+  .ritmos-title {
+    font-size: 60px;
+  }
+
+  .ritmos-hero {
+    padding: 36px 56px 24px;
+  }
+
+  /* Splash overlay no widescreen: botões maiores */
+  .splash-actions-overlay {
+    padding: 40px 120px 48px;
+    gap: 32px;
+  }
+
+  .btn-primary {
+    max-width: 380px;
+  }
+
+  .screen:has(.login-header) .login-form-container,
+  .screen:has(.form-header) .form-container {
+    flex: 0 0 540px;
+    padding: 72px 64px;
+  }
+
+  .screen:has(.login-header) .login-title {
+    font-size: 68px;
+  }
+
+  .ginga-card {
+    flex: 0 0 300px;
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   SMART TV Full HD – 1920px
+   Aumenta tudo para boa leitura a 2–3 metros de distância
+---------------------------------------------------------------- */
+@media (min-width: 1920px) {
+
+  html {
+    font-size: 20px;
+  }
+
+  .ginga-topbar {
+    height: 96px;
+    padding: 0 64px;
+  }
+
+  .ginga-topbar-title {
+    font-size: 46px;
+  }
+
+  .user-avatar-wrap {
+    width: 60px;
+    height: 60px;
+  }
+
+  .btn-back svg,
+  .btn-settings svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  .bottom-nav {
+    height: 96px;
+  }
+
+  .nav-item {
+    height: 96px;
+    padding: 0 36px;
+    gap: 12px;
+  }
+
+  .nav-icon-wrap {
+    width: 36px;
+    height: 36px;
+  }
+
+  .nav-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-label {
+    font-size: 17px;
+    letter-spacing: 0.6px;
+  }
+
+  .ritmos-main, .trilha-main, .aprender-main,
+  .sobre-main, .sobre-main-content, .ginga-main,
+  .apelido-main, .perfil-main, .perfil-main-content,
+  .conquistas-main-content, .glossario-main-content,
+  .historia-main, .recompensa-main {
+    height: calc(100vh - 96px);
+  }
+
+  .ritmos-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 0 72px 72px;
+  }
+
+  .ritmo-card {
+    min-height: 240px;
+    border-radius: 36px;
+    padding: 36px;
+  }
+
+  .ritmo-card-content h2 {
+    font-size: 68px;
+  }
+
+  .ritmo-card-content p {
+    font-size: 18px;
+  }
+
+  .ritmos-hero {
+    padding: 52px 72px 32px;
+  }
+
+  .ritmos-hero-img {
+    width: 340px;
+  }
+
+  .ritmos-title {
+    font-size: 80px;
+  }
+
+  .ritmos-subtitle {
+    font-size: 22px;
+  }
+
+  /* Splash overlay na Smart TV: botões maiores */
+  .splash-actions-overlay {
+    padding: 48px 160px 60px;
+    gap: 40px;
+  }
+
+  .btn-primary {
+    max-width: 480px;
+  }
+
+  .btn-primary {
+    padding: 26px 48px;
+    font-size: 20px;
+  }
+
+  .btn-secondary {
+    font-size: 18px;
+  }
+
+  .screen:has(.login-header) .login-form-container,
+  .screen:has(.form-header) .form-container {
+    flex: 0 0 640px;
+    padding: 80px 72px;
+  }
+
+  .screen:has(.login-header) .login-title {
+    font-size: 88px;
+  }
+
+  .screen:has(.login-header) .login-subtitle {
+    font-size: 22px;
+  }
+
+  .screen:has(.login-header) .login-logo-circle {
+    width: 150px;
+    height: 150px;
+  }
+
+  .input-group input {
+    padding: 22px 24px;
+    font-size: 20px;
+    border-radius: 18px;
+  }
+
+  .btn-primary-red {
+    padding: 24px;
+    font-size: 28px;
+  }
+
+  .ginga-card {
+    flex: 0 0 380px;
+  }
+
+  .card-image-bg {
+    height: 320px;
+  }
+
+  .card-title {
+    font-size: 52px;
+  }
+
+  .node-active {
+    width: 110px;
+    height: 110px;
+  }
+
+  .node-completed {
+    width: 90px;
+    height: 90px;
+  }
+
+  /* Foco bem visível para navegação por controle remoto */
+  :focus-visible {
+    outline: 4px solid var(--clr-yellow, #F0C030);
+    outline-offset: 5px;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    box-shadow: 0 0 0 4px rgba(240, 192, 48, 0.35);
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   4K TV – 2560px
+---------------------------------------------------------------- */
+@media (min-width: 2560px) {
+
+  html {
+    font-size: 26px;
+  }
+
+  .ginga-topbar {
+    height: 112px;
+    padding: 0 96px;
+  }
+
+  .ginga-topbar-title {
+    font-size: 56px;
+  }
+
+  .bottom-nav {
+    height: 112px;
+  }
+
+  .nav-item {
+    height: 112px;
+    padding: 0 48px;
+  }
+
+  .nav-label {
+    font-size: 20px;
+  }
+
+  .actions {
+    flex: 0 0 700px;
+  }
+
+  .screen:has(.login-header) .login-form-container,
+  .screen:has(.form-header) .form-container {
+    flex: 0 0 780px;
+  }
+
+  .ritmos-list {
+    gap: 40px;
+    padding: 0 96px 80px;
+  }
+
+  .ritmo-card {
+    min-height: 300px;
+  }
+}
