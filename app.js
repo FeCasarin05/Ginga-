@@ -1589,3 +1589,79 @@ function onPlayerStateChange(event) {
     }
   }
 }
+
+// ================================================================
+// INTEGRAÇÃO COM SUPABASE (AUTH - LOGIN E CADASTRO)
+// ================================================================
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.getElementById('form-login');
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Impede o reload automático da página (action=ritmos.html)
+      const email = document.getElementById('login-email').value;
+      const senha = document.getElementById('login-senha').value;
+      
+      const btn = loginForm.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="btn-label">ENTRANDO...</span>';
+      
+      if (window.supabaseAPI) {
+        const { data, error } = await window.supabaseAPI.signIn(email, senha);
+        if (error) {
+          alert('Erro ao fazer login: ' + (error.message || 'Credenciais inválidas.'));
+          btn.innerHTML = originalText;
+        } else {
+          // Extrair apelido e prosseguir
+          if (data.user && data.user.user_metadata && data.user.user_metadata.apelido) {
+             localStorage.setItem('ginga_apelido', data.user.user_metadata.apelido);
+          } else {
+             localStorage.setItem('ginga_apelido', 'Usuário');
+          }
+          window.location.href = 'ritmos.html';
+        }
+      } else {
+        alert("Erro: O Supabase não foi carregado corretamente.");
+        btn.innerHTML = originalText;
+      }
+    });
+  }
+
+  const signupForm = document.getElementById('form-criar-conta');
+  if (signupForm) {
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      const confirmar = document.getElementById('confirmar').value;
+      
+      if (senha !== confirmar) {
+        alert("As senhas não coincidem!");
+        return;
+      }
+      if (senha.length < 6) {
+        alert("A senha deve ter pelo menos 6 caracteres.");
+        return;
+      }
+      
+      const btn = signupForm.querySelector('button[type="submit"]');
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="btn-label">CRIANDO...</span>';
+      
+      if (window.supabaseAPI) {
+        const { data, error } = await window.supabaseAPI.signUp(email, senha, nome);
+        if (error) {
+          alert('Erro ao criar conta: ' + error.message);
+          btn.innerHTML = originalText;
+        } else {
+          localStorage.setItem('ginga_apelido', nome);
+          window.location.href = 'apelido.html'; 
+        }
+      } else {
+        alert("Erro: O Supabase não foi carregado corretamente.");
+        btn.innerHTML = originalText;
+      }
+    });
+  }
+});
+

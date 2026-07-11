@@ -3,8 +3,8 @@
 // ==========================================
 
 // IMPORTANTE: O usuário precisa substituir essas variáveis com as chaves reais do projeto no Supabase
-const SUPABASE_URL = 'https://kfofrrkbntdzttinxmke.supabase.co'; 
-const SUPABASE_ANON_KEY = 'sb_publishable_6jug5-DrrygXO6L97qp9xg_rhHJE9Bo';
+const SUPABASE_URL = 'https://fglpuhiwjmtvfobyqedq.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnbHB1aGl3am10dmZvYnlxZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjQ0NDMsImV4cCI6MjA5OTMwMDQ0M30.gbZ-MdvBGdesAqM0lXazkpscUz2m8oICfPyUZcGb3oE';
 
 // Inicializa o cliente do Supabase
 // Requer que a biblioteca do Supabase seja carregada no HTML: <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

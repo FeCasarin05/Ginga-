@@ -1,19 +1,19 @@
-ï»¿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
   <script>if(localStorage.getItem('ginga_theme')==='dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="GINGA! â€“ Mestre na Quadrilha" />
-  <title>GINGA! â€“ Recompensa Final</title>
+  <meta name="description" content="GINGA! – Mestre na Quadrilha" />
+  <title>GINGA! – Recompensa Final</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="style.css?v=639170776855048597" />
   <link rel="stylesheet" href="responsive-desktop.css" />
   <style>
-    /* Estilos especÃ­ficos do confete para nÃ£o poluir o style.css global com dezenas de animaÃ§Ãµes variadas */
+    /* Estilos específicos do confete para não poluir o style.css global com dezenas de animações variadas */
     .confetti-container {
       position: absolute;
       top: 0;
@@ -64,24 +64,24 @@
             style="top: 70%; left: 80%; transform: scale(0.8);"><img src="IMG/NOTA%20MUSICAL.png" alt="" /></span>
 
           <!-- Personagem principal -->
-          <img src="IMG/COMEMORAÃ‡ÃƒO.png" alt="ComemoraÃ§Ã£o" class="recompensa-img anim-trophy-pop"
+          <img src="IMG/COMEMORAÇÃO.png" alt="Comemoração" class="recompensa-img anim-trophy-pop"
             style="width: 280px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.15));" />
 
         </div>
 
         <div class="recompensa-text anim-fade-up">
-          <h1 class="font-bebas recompensa-title" style="font-size: 38px; line-height: 1.1;">VOCÃŠ Ã‰ MESTRE
-            NA<br>QUADRILHA! ðŸŽŠ</h1>
+          <h1 class="font-bebas recompensa-title" style="font-size: 38px; line-height: 1.1;">VOCÊ É MESTRE
+            NA<br>QUADRILHA! ??</h1>
           <div class="recompensa-subtitle-wrap" style="margin-top: 10px;">
             <p class="recompensa-subtitle" style="font-size: 14px;">
-              ParabÃ©ns! VocÃª completou toda a<br>coreografia e dominou o gingado junino<br>com excelÃªncia.
+              Parabéns! Você completou toda a<br>coreografia e dominou o gingado junino<br>com excelência.
             </p>
           </div>
         </div>
 
         <div class="recompensa-action anim-fade-up-delay">
           <a href="ritmos.html" class="btn btn-primary-red font-bebas btn-continuar-final">
-            <span class="btn-label">CONTINUAR <span class="arrow-right">â†’</span></span>
+            <span class="btn-label">CONTINUAR <span class="arrow-right">?</span></span>
           </a>
         </div>
 
@@ -94,7 +94,7 @@
     // Gerador de confetes
     const container = document.getElementById('confetti-container');
     const colors = ['#B52026', '#F0C030', '#E88A4A', '#81C784', '#64B5F6', '#BA68C8'];
-    const shapes = ['50%', '0%']; // CÃ­rculos e quadrados
+    const shapes = ['50%', '0%']; // Círculos e quadrados
 
     for (let i = 0; i < 80; i++) {
       const conf = document.createElement('div');
@@ -107,7 +107,7 @@
 
       const size = Math.random() * 8 + 6; // Entre 6px e 14px
       conf.style.width = size + 'px';
-      conf.style.height = (size * (Math.random() > 0.5 ? 1 : 1.5)) + 'px'; // Alguns retÃ¢ngulos
+      conf.style.height = (size * (Math.random() > 0.5 ? 1 : 1.5)) + 'px'; // Alguns retângulos
 
       const animDuration = Math.random() * 3 + 3; // 3s a 6s
       const animDelay = Math.random() * 2; // 0s a 2s
@@ -117,10 +117,13 @@
       container.appendChild(conf);
     }
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
   <script src="app.js"></script>
 </body>
 
 </html>
+
 
 
 
