@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const css = fs.readFileSync('style.css', 'utf8');
 
 const colors = new Set();

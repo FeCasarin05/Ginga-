@@ -1,5 +1,5 @@
-/* ================================================================
-   GINGA! – Design System & Splash Screen
+﻿/* ================================================================
+   GINGA! - Design System & Splash Screen
    Fonte: Bebas Neue (Google Fonts)
    Design base: IMG/Captura de tela 2026-05-02 151926.png
    ================================================================ */
@@ -21,7 +21,7 @@
 }
 
 :root {
-  /* ── Cores exatas do design ── */
+  /* -- Cores exatas do design -- */
   --clr-red: #B52026;
   --clr-red-light: #F6EDE8;
   --clr-red-soft: #E66161;
@@ -39,11 +39,11 @@
   --clr-secondary-h: rgba(255, 255, 255, 1.00);
   --clr-bg-main: #FDFBF4;
 
-  /* ── Fontes ── */
+  /* -- Fontes -- */
   --font-display: 'Bebas Neue Local', 'Bebas Neue', 'Impact', sans-serif;
   --font-ui: 'Montserrat', sans-serif;
 
-  /* ── Transições ── */
+  /* -- Transiçãoções -- */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --t-fast: 140ms;
@@ -62,7 +62,7 @@ body {
 }
 
 /* ================================================================
-   SHELL (moldura de celular — visível em desktop)
+   SHELL (moldura de celular é visóvel em desktop)
    ================================================================ */
 .shell {
   display: flex;
@@ -103,7 +103,7 @@ body {
   position: relative;
   flex: 1;
 
-  /* imagem de fundo: a captura do design — pixel-perfect */
+  /* imagem de fundo: a captura do design é pixel-perfect */
   background-color: var(--clr-red);
   background-size: cover;
   background-position: center center;
@@ -145,7 +145,7 @@ body {
 }
 
 /* ================================================================
-   BOTÕES — BASE
+   BOTÕES é BASE
    ================================================================ */
 .btn {
   display: inline-flex;
@@ -168,15 +168,15 @@ body {
   animation: btnFadeUp 0.45s var(--ease-out) both;
 }
 
-/* Focus visível (acessibilidade) */
+/* Focus visóvel (acessibilidade) */
 .btn:focus-visible {
   outline: 3px solid var(--clr-yellow);
   outline-offset: 4px;
 }
 
-/* ──────────────────────────────────────
+/* --------------------------------------
    BOTÃO PRIMÁRIO: COMEÇAR AGORA
-   ────────────────────────────────────── */
+   -------------------------------------- */
 .btn-primary {
   width: 100%;
   max-width: 310px;
@@ -242,9 +242,9 @@ body {
   transform: translateX(5px);
 }
 
-/* ──────────────────────────────────────
+/* --------------------------------------
    BOTÃO SECUNDÁRIO: JÁ SOU DA COMUNIDADE
-   ────────────────────────────────────── */
+   -------------------------------------- */
 .btn-secondary {
   background: transparent;
   color: var(--clr-secondary);
@@ -342,7 +342,7 @@ body {
    RESPONSIVIDADE
    ================================================================ */
 
-/* ── Celular pequeno / full-bleed ── */
+/* -- Celular pequeno / full-bleed -- */
 @media (max-width: 430px) {
   .shell {
     padding: 0;
@@ -362,7 +362,7 @@ body {
   }
 }
 
-/* ── Tablet portrait ── */
+/* -- Tablet portrait -- */
 @media (min-width: 431px) and (max-width: 768px) {
   .shell {
     padding: 32px;
@@ -383,7 +383,7 @@ body {
   }
 }
 
-/* ── Desktop ── */
+/* -- Desktop -- */
 @media (min-width: 769px) {
   .shell {
     padding: 48px;
@@ -395,7 +395,7 @@ body {
   }
 }
 
-/* ── Landscape mobile ── */
+/* -- Landscape mobile -- */
 @media (max-height: 520px) and (orientation: landscape) {
   .screen {
     flex-direction: row;
@@ -434,7 +434,7 @@ body {
   }
 }
 
-/* ── Preferência por menos animação ── */
+/* -- Preferência por menos animaçãoão -- */
 @media (prefers-reduced-motion: reduce) {
 
   .drum-svg,
@@ -1979,7 +1979,7 @@ body {
   animation: glow-secondary-pulse 4s ease-in-out 1.5s infinite alternate;
 }
 
-/* Glow entrance — grows and fades in */
+/* Glow entrance - grows and fades in */
 @keyframes glow-entrance {
   0% {
     opacity: 0;
@@ -3195,7 +3195,7 @@ body {
 }
 
 /* ================================================================
-   TELA: HISTÓRIA DA DANÇA GAÚCHA (TIMELINE)
+   TELA: HISTÓRIA DA DANÇA GAíCHA (TIMELINE)
    ================================================================ */
 
 .gaucha-bg-pattern {
@@ -4599,7 +4599,7 @@ body {
 }
 
 /* ================================================================
-   MODAL DE CONFIGURAÇÕES
+   MODAL DE CONFIGURAíÇÕES
    ================================================================ */
 
 .settings-modal-overlay {
@@ -4762,7 +4762,7 @@ input:checked+.slider:before {
 }
 
 /* ================================================================
-   SISTEMA DE ANIMAÇÕES GINGA!
+   SISTEMA DE ANIMAíÇÕES GINGA!
    ================================================================ */
 
 @keyframes fadeInUp {
@@ -4826,7 +4826,7 @@ input:checked+.slider:before {
   }
 }
 
-/* Aplicação de Entrada Suave em Telas */
+/* Aplicaçãoão de Entrada Suave em Telas */
 .screen>main>* {
   animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -4888,7 +4888,7 @@ input:checked+.slider:before {
   animation: float 4s ease-in-out infinite;
 }
 
-/* Micro-interação em Botões */
+/* Micro-interaçãoão em Botções */
 .btn:active,
 .btn-primary-red:active,
 .btn-next-modulo:active,
@@ -4922,7 +4922,7 @@ input:checked+.slider:before {
   animation: drift 6s ease-in-out infinite;
 }
 
-/* Transição Suave na Navbar */
+/* Transiçãoão Suave na Navbar */
 .nav-item {
   transition: transform 0.2s ease;
 }
@@ -5245,7 +5245,7 @@ input:checked+.slider:before {
 }
 
 .btn-role::after {
-  content: '→';
+  content: '?';
   position: absolute;
   right: 20px;
   font-size: 18px;
@@ -5297,7 +5297,7 @@ input:checked+.slider:before {
   opacity: 0.7;
 }
 
-/* ── Dama ── */
+/* -- Dama -- */
 .btn-role-dama {
   background: #FFF5F5;
   border-color: #F4DFDF;
@@ -5316,7 +5316,7 @@ input:checked+.slider:before {
   box-shadow: 0 6px 20px rgba(230, 97, 97, 0.2);
 }
 
-/* ── Cavalheiro ── */
+/* -- Cavalheiro -- */
 .btn-role-cavalheiro {
   background: #F0F6FF;
   border-color: #D6E4F5;
@@ -5335,7 +5335,7 @@ input:checked+.slider:before {
   box-shadow: 0 6px 20px rgba(74, 144, 217, 0.2);
 }
 
-/* ── Casal ── */
+/* -- Casal -- */
 .btn-role-casal {
   background: linear-gradient(135deg, #FFF8F0 0%, #FFF5F5 100%);
   border-color: #F0DCC8;
@@ -5354,7 +5354,7 @@ input:checked+.slider:before {
   box-shadow: 0 6px 20px rgba(240, 192, 48, 0.25);
 }
 
-/* ── Dark Mode ── */
+/* -- Dark Mode -- */
 [data-theme="dark"] .role-modal-container {
   background: var(--bg-card, #1E1E2E);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
@@ -5498,7 +5498,7 @@ input:checked+.slider:before {
 .video-play-pause-btn svg {
   width: 36px;
   height: 36px;
-  margin-left: 4px; /* Ajuste óptico para o ícone de play */
+  margin-left: 4px; /* Ajuste óptico para o Ícone de play */
 }
 #pauseIcon {
   margin-left: 0;
@@ -5731,7 +5731,7 @@ input:checked+.slider:before {
 
 
 /* ================================================================
-   SOBRE – CARD DE ENTREVISTA EM VÍDEO (YouTube)
+   SOBRE - CARD DE ENTREVISTA EM VÍDEO (YouTube)
    ================================================================ */
 .video-interview-card {
   background: #fff;

@@ -1,10 +1,10 @@
-// ==========================================
-// CONFIGURAÃ‡ÃƒO DO SUPABASE
+﻿// ==========================================
+// CONFIGURAÇÃO DO SUPABASE
 // ==========================================
 
-// IMPORTANTE: O usuÃ¡rio precisa substituir essas variÃ¡veis com as chaves reais do projeto no Supabase
+// IMPORTANTE: O usuário precisa substituir essas variáveis com as chaves reais do projeto no Supabase
 const SUPABASE_URL = 'https://fglpuhiwjmtvfobyqedq.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnbHB1aGl3am10dmZvYnlxZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjQ0NDMsImV4cCI6MjA5OTMwMDQ0M30.gbZ-MdvBGdesAqM0lXazkpscUz2m8oICfPyUZcGb3oE';
+const SUPABASE_ANÃON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnbHB1aGl3am10dmZvYnlxZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjQ0NDMsImV4cCI6MjA5OTMwMDQ0M30.gbZ-MdvBGdesAqM0lXazkpscUz2m8oICfPyUZcGb3oE';
 
 // Inicializa o cliente do Supabase
 // Requer que a biblioteca do Supabase seja carregada no HTML
@@ -29,7 +29,7 @@ const safeStorage = {
 
 try {
   if (window.supabase && SUPABASE_URL !== 'SUA_URL_AQUI') {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANÃON_KEY, {
       auth: {
         storage: safeStorage,
         autoRefreshToken: true,
@@ -38,15 +38,15 @@ try {
       }
     });
   } else {
-    console.error('Biblioteca do Supabase nÃ£o encontrada no window.');
+    console.error('Biblioteca do Supabase não encontrada no window.');
   }
 } catch(e) {
   console.error('Erro ao inicializar Supabase:', e);
 }
 
-// FunÃ§Ãµes de AutenticaÃ§Ã£o
+// Funções de Autenticação
 async function signUp(email, password, apelido) {
-  if (!supabaseClient) return { error: { message: 'Supabase nÃ£o configurado.' } };
+  if (!supabaseClient) return { error: { message: 'Supabase não configurado.' } };
 
   const { data, error } = await supabaseClient.auth.signUp({
     email,
@@ -61,7 +61,7 @@ async function signUp(email, password, apelido) {
 }
 
 async function signIn(email, password) {
-  if (!supabaseClient) return { error: { message: 'Supabase nÃ£o configurado.' } };
+  if (!supabaseClient) return { error: { message: 'Supabase não configurado.' } };
 
   const { data, error } = await supabaseClient.auth.signInWithPassword({
     email,
@@ -84,10 +84,10 @@ async function checkUser() {
   return user;
 }
 
-// FunÃ§Ãµes de Progresso
+// Funções de Progresso
 async function saveProgressToCloud(progressData) {
   const user = await checkUser();
-  if (!user) return; // SÃ³ salva na nuvem se estiver logado
+  if (!user) return; // Só salva na nuvem se estiver logado
 
   const { error } = await supabaseClient
     .from('profiles')
@@ -120,7 +120,7 @@ async function loadProgressFromCloud() {
   return data;
 }
 
-// Exporta as funÃ§Ãµes para serem usadas no app.js
+// Exporta as funções para serem usadas no app.js
 window.supabaseAPI = {
   signUp,
   signIn,

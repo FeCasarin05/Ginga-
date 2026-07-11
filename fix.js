@@ -1,4 +1,4 @@
-const fs = require('fs');
+﻿const fs = require('fs');
 const files = fs.readdirSync('.').filter(f => f.endsWith('.html'));
 
 for (const file of files) {

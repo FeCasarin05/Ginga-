@@ -1,40 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <script>if(localStorage.getItem('ginga_theme')==='dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
+  <script>if (localStorage.getItem('ginga_theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="GINGA! – Trilha Hip-Hop" />
-  <title>GINGA! – Trilha Hip-Hop</title>
+  <meta name="description" content="GINGA! - Trilha Hip-Hop" />
+  <title>GINGA! - Trilha Hip-Hop</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css?v=639170776855048597" />
   <link rel="stylesheet" href="responsive-desktop.css" />
 </head>
+
 <body>
 
   <div class="shell" role="main">
     <div class="screen trilha-screen">
-      
+
       <!-- ===== HEADER: Topbar ===== -->
       <header class="ginga-topbar">
         <button class="btn-back btn-back-to-ritmos" aria-label="Voltar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7" />
+          </svg>
         </button>
         <span class="ginga-topbar-title font-bebas">GINGA+</span>
         <div class="ginga-topbar-actions">
-          <button class="btn-settings" aria-label="Configurações">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <button class="btn-settings" aria-label="Configuraçãoções">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path
+                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+              </path>
+            </svg>
           </button>
           <a href="perfil.html" class="user-avatar-wrap">
             <img src="IMG/HIPHOP%20DAN%C3%87ANDO.png" alt="Avatar" class="user-avatar" />
-            <span class="music-note-small avatar-note" aria-hidden="true"><img src="IMG/NOTA%20MUSICAL.png" alt="" /></span>
+            <span class="music-note-small avatar-note" aria-hidden="true"><img src="IMG/NOTA%20MUSICAL.png"
+                alt="" /></span>
           </a>
         </div>
       </header>
 
       <main class="trilha-main">
-        
+
         <!-- ===== HERO AREA ===== -->
         <div class="trilha-hero">
           <img src="IMG/abertura%20hiphop.png" alt="Hip-Hop" class="trilha-hero-img" />
@@ -47,14 +60,15 @@
 
         <!-- ===== PATH AREA ===== -->
         <div class="trilha-path-container">
-          
+
           <!-- Decorative Background Elements -->
           <img src="IMG/desenho%20hiphop.png" alt="" class="bg-fire" style="top: 35%; right: 5%;" />
           <img src="IMG/desenho%20hiphop.png" alt="" class="bg-fire" style="top: 60%; left: 5%;" />
 
           <!-- Background SVG Line for the path -->
           <svg class="path-line" viewBox="0 0 100 1200" preserveAspectRatio="none">
-            <path d="M50 0 C 80 150, 20 250, 50 400 C 80 550, 20 650, 50 800 C 80 1000, 20 1100, 50 1200" stroke="#FFD868" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M50 0 C 80 150, 20 250, 50 400 C 80 550, 20 650, 50 800 C 80 1000, 20 1100, 50 1200"
+              stroke="#FFD868" stroke-width="4" fill="none" stroke-linecap="round" />
           </svg>
 
           <!-- Nodes List -->
@@ -66,7 +80,8 @@
         <!-- ===== FOOTER AREA ===== -->
         <div class="trilha-footer">
           <p class="trilha-footer-text">Pronto para novos desafios?</p>
-          <a href="trilha-afro.html" class="btn btn-primary-red font-bebas btn-next-modulo" style="text-decoration: none; text-align: center;">
+          <a href="trilha-afro.html" class="btn btn-primary-red font-bebas btn-next-modulo"
+            style="text-decoration: none; text-align: center;">
             <span class="btn-label">IR PARA O PRÓXIMO MÓDULO <span class="arrow-right">?</span></span>
           </a>
         </div>
@@ -101,10 +116,13 @@
   <!-- Video Modal Customizado -->
   <div id="videoModal" class="video-modal-overlay">
     <div class="video-modal-container">
-      
+
       <!-- Botão Voltar (Estética do App) -->
       <button id="closeVideoModal" class="btn-back-video" aria-label="Voltar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
       </button>
 
       <div id="youtubePlayer" style="width: 100%; height: 100%; flex: 1;"></div>
@@ -129,11 +147,5 @@
   <script src="supabase.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
