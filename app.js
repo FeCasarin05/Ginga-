@@ -15,10 +15,10 @@
     const progressData = {
       apelido: localStorage.getItem('ginga_apelido') || 'Usuário',
       personagem: localStorage.getItem('ginga_personagem') || 'IMG/BOI DANÇANDO.png',
-      quadrilha_progress: parseInt(localStorage.getItem('progress_trilha_quadrilha') || '1'),
-      hiphop_progress: parseInt(localStorage.getItem('progress_trilha_hiphop') || '1'),
-      gaucha_progress: parseInt(localStorage.getItem('progress_trilha_gaucha') || '1'),
-      afro_progress: parseInt(localStorage.getItem('progress_trilha_afro') || '1'),
+      quadrilha_progress: parseInt(localStorage.getItem('ginga_quadrilha_progress') || '1'),
+      hiphop_progress: parseInt(localStorage.getItem('ginga_hiphop_progress') || '1'),
+      gaucha_progress: parseInt(localStorage.getItem('ginga_gaucha_progress') || '1'),
+      afro_progress: parseInt(localStorage.getItem('ginga_afro_progress') || '1'),
       achievements_unlocked: JSON.parse(localStorage.getItem('ginga_achievements') || '[]')
     };
     await window.supabaseAPI.saveProgressToCloud(progressData);
@@ -1643,10 +1643,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (cp) {
               if (cp.apelido) localStorage.setItem('ginga_apelido', cp.apelido);
               if (cp.personagem) localStorage.setItem('ginga_personagem', cp.personagem);
-              if (cp.quadrilha_progress) localStorage.setItem('progress_trilha_quadrilha', cp.quadrilha_progress);
-              if (cp.hiphop_progress) localStorage.setItem('progress_trilha_hiphop', cp.hiphop_progress);
-              if (cp.gaucha_progress) localStorage.setItem('progress_trilha_gaucha', cp.gaucha_progress);
-              if (cp.afro_progress) localStorage.setItem('progress_trilha_afro', cp.afro_progress);
+              if (cp.quadrilha_progress) localStorage.setItem('ginga_quadrilha_progress', cp.quadrilha_progress);
+              if (cp.hiphop_progress) localStorage.setItem('ginga_hiphop_progress', cp.hiphop_progress);
+              if (cp.gaucha_progress) localStorage.setItem('ginga_gaucha_progress', cp.gaucha_progress);
+              if (cp.afro_progress) localStorage.setItem('ginga_afro_progress', cp.afro_progress);
               if (cp.achievements_unlocked) localStorage.setItem('ginga_achievements', JSON.stringify(cp.achievements_unlocked));
             }
           }
