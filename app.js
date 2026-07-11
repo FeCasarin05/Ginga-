@@ -1639,7 +1639,8 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           if (window.supabaseAPI && window.supabaseAPI.loadProgressFromCloud) {
-            const cp = await window.supabaseAPI.loadProgressFromCloud();
+            // Passa o ID diretamente para evitar race condition com checkUser()
+            const cp = await window.supabaseAPI.loadProgressFromCloud(data.user.id);
             if (cp) {
               if (cp.apelido) localStorage.setItem('ginga_apelido', cp.apelido);
               if (cp.personagem) localStorage.setItem('ginga_personagem', cp.personagem);

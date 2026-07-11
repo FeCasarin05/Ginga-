@@ -100,14 +100,18 @@ async function saveProgressToCloud(progressData) {
   }
 }
 
-async function loadProgressFromCloud() {
-  const user = await checkUser();
-  if (!user) return null;
+async function loadProgressFromCloud(userId = null) {
+  let uid = userId;
+  if (!uid) {
+    const user = await checkUser();
+    if (!user) return null;
+    uid = user.id;
+  }
 
   const { data, error } = await supabaseClient
     .from('profiles')
     .select('*')
-    .eq('id', user.id)
+    .eq('id', uid)
     .single();
 
   if (error) {
