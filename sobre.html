@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <script>if(localStorage.getItem('ginga_theme')==='dark') document.documentElement.setAttribute('data-theme', 'dark');</script>
@@ -98,6 +98,49 @@
               </div>
               <span class="font-bebas-ui">EDUCAÇÃO SUPERIOR</span>
            </div>
+        </div>
+
+        <!-- Section: Entrevista com Professor UFSM -->
+        <div class="sobre-section-divider">
+           <span class="line"></span>
+           <span class="font-bebas text-red">ENTREVISTA</span>
+           <span class="line"></span>
+        </div>
+
+        <div class="video-interview-card">
+           <div class="video-interview-header">
+              <div class="video-interview-icon">
+                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              </div>
+              <div>
+                 <h3 class="font-bebas text-red" style="margin:0; font-size:20px;">Prof. UFSM</h3>
+                 <span class="font-bebas-ui" style="font-size:11px; color: var(--clr-muted, #888); text-transform:uppercase; letter-spacing:1px;">Universidade Federal de Santa Maria</span>
+              </div>
+           </div>
+           <p class="video-interview-desc">Conheça a visão do professor de dança da UFSM que contribuiu com a curadoria pedagógica do GINGA! — unindo pesquisa acadêmica e tradição cultural brasileira.</p>
+           <div class="video-embed-wrap" id="yt-thumb-wrap-entrevista">
+              <!-- Thumbnail clicável — iframe só carrega ao clicar (evita erros de configuração) -->
+              <img
+                src="https://img.youtube.com/vi/yIo2IpKb7RQ/hqdefault.jpg"
+                alt="Thumbnail da entrevista com professor de dança da UFSM"
+                class="yt-thumb-img"
+                onerror="this.src='https://img.youtube.com/vi/yIo2IpKb7RQ/0.jpg'"
+              />
+              <button
+                class="yt-play-btn"
+                aria-label="Assistir entrevista no YouTube"
+                onclick="
+                  var wrap = document.getElementById('yt-thumb-wrap-entrevista');
+                  wrap.innerHTML = '<iframe src=\'https://www.youtube.com/embed/yIo2IpKb7RQ?autoplay=1&rel=0&modestbranding=1\' title=\'Entrevista com professor de dança da UFSM – GINGA!\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\' allowfullscreen></iframe>';
+                "
+              >
+                <svg viewBox="0 0 68 48" aria-hidden="true">
+                  <path d="M66.5 7.7c-.8-2.9-3-5.2-5.9-6C55.8 0 34 0 34 0S12.2 0 7.4 1.7C4.5 2.5 2.3 4.8 1.5 7.7 0 12.5 0 24 0 24s0 11.5 1.5 16.3c.8 2.9 3 5.2 5.9 6C12.2 48 34 48 34 48s21.8 0 26.6-1.7c2.9-.8 5.1-3.1 5.9-6C68 35.5 68 24 68 24s0-11.5-1.5-16.3z" fill="#ff0000"/>
+                  <path d="M45 24L27 14v20" fill="#fff"/>
+                </svg>
+              </button>
+           </div>
+
         </div>
 
         <!-- Footer Connect -->
