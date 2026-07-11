@@ -1,10 +1,10 @@
-﻿// ==========================================
+// ==========================================
 // CONFIGURAÇÃO DO SUPABASE
 // ==========================================
 
 // IMPORTANTE: O usuário precisa substituir essas variáveis com as chaves reais do projeto no Supabase
 const SUPABASE_URL = 'https://fglpuhiwjmtvfobyqedq.supabase.co';
-const SUPABASE_ANÃON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnbHB1aGl3am10dmZvYnlxZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjQ0NDMsImV4cCI6MjA5OTMwMDQ0M30.gbZ-MdvBGdesAqM0lXazkpscUz2m8oICfPyUZcGb3oE';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnbHB1aGl3am10dmZvYnlxZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjQ0NDMsImV4cCI6MjA5OTMwMDQ0M30.gbZ-MdvBGdesAqM0lXazkpscUz2m8oICfPyUZcGb3oE';
 
 // Inicializa o cliente do Supabase
 // Requer que a biblioteca do Supabase seja carregada no HTML
@@ -14,22 +14,22 @@ let supabaseClient;
 const safeStorage = {
   memory: {},
   getItem: (key) => {
-    try { return window.localStorage.getItem(key); } 
-    catch(e) { return safeStorage.memory[key] || null; }
+    try { return window.localStorage.getItem(key); }
+    catch (e) { return safeStorage.memory[key] || null; }
   },
   setItem: (key, value) => {
-    try { window.localStorage.setItem(key, value); } 
-    catch(e) { safeStorage.memory[key] = value; }
+    try { window.localStorage.setItem(key, value); }
+    catch (e) { safeStorage.memory[key] = value; }
   },
   removeItem: (key) => {
-    try { window.localStorage.removeItem(key); } 
-    catch(e) { delete safeStorage.memory[key]; }
+    try { window.localStorage.removeItem(key); }
+    catch (e) { delete safeStorage.memory[key]; }
   }
 };
 
 try {
   if (window.supabase && SUPABASE_URL !== 'SUA_URL_AQUI') {
-    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANÃON_KEY, {
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
       auth: {
         storage: safeStorage,
         autoRefreshToken: true,
@@ -40,7 +40,7 @@ try {
   } else {
     console.error('Biblioteca do Supabase não encontrada no window.');
   }
-} catch(e) {
+} catch (e) {
   console.error('Erro ao inicializar Supabase:', e);
 }
 
@@ -72,10 +72,8 @@ async function signIn(email, password) {
 
 async function signOut() {
   if (!supabaseClient) return;
-  const { error } = await supabaseClient.auth.signOut();
-  if (!error) {
-    window.location.href = 'login.html';
-  }
+  await supabaseClient.auth.signOut();
+  // O redirecionamento é feito pelo app.js para garantir que o localStorage seja limpo primeiro
 }
 
 async function checkUser() {
