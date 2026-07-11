@@ -7,17 +7,23 @@ const SUPABASE_URL = 'https://fglpuhiwjmtvfobyqedq.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnbHB1aGl3am10dmZvYnlxZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjQ0NDMsImV4cCI6MjA5OTMwMDQ0M30.gbZ-MdvBGdesAqM0lXazkpscUz2m8oICfPyUZcGb3oE';
 
 // Inicializa o cliente do Supabase
-// Requer que a biblioteca do Supabase seja carregada no HTML: <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+// Requer que a biblioteca do Supabase seja carregada no HTML
 let supabase;
 
-if (SUPABASE_URL !== 'SUA_URL_AQUI') {
-  supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+try {
+  if (window.supabase && SUPABASE_URL !== 'SUA_URL_AQUI') {
+    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  } else {
+    console.error('Biblioteca do Supabase não encontrada no window.');
+  }
+} catch (e) {
+  console.error('Erro ao inicializar Supabase:', e);
 }
 
 // Funções de Autenticação
 async function signUp(email, password, apelido) {
   if (!supabase) return { error: { message: 'Supabase não configurado.' } };
-  
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -32,7 +38,7 @@ async function signUp(email, password, apelido) {
 
 async function signIn(email, password) {
   if (!supabase) return { error: { message: 'Supabase não configurado.' } };
-  
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password
@@ -61,8 +67,8 @@ async function saveProgressToCloud(progressData) {
 
   const { error } = await supabase
     .from('profiles')
-    .upsert({ 
-      id: user.id, 
+    .upsert({
+      id: user.id,
       ...progressData,
       updated_at: new Date()
     });
@@ -86,7 +92,7 @@ async function loadProgressFromCloud() {
     console.error("Erro ao carregar progresso da nuvem:", error);
     return null;
   }
-  
+
   return data;
 }
 
