@@ -1,4 +1,4 @@
-﻿/* ================================================================
+/* ================================================================
    GINGA! – app.js
    Interações: ripple, navegação futura, acessibilidade por teclado
    ================================================================ */
@@ -7,9 +7,22 @@
 // AUTH GUARD & AUTO-LOGIN (Local Storage)
 // ================================================================
 (function () {
-  const currentPath = window.location.pathname;
-  const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
+  const currentPage = window.location.pathname.split('/').pop();
   const publicPages = ['index.html', 'login.html', 'criar-conta.html', 'apelido.html', ''];
+
+  window.syncProgressToCloud = async function () {
+    if (!window.supabaseAPI || !window.supabaseAPI.saveProgressToCloud) return;
+    const progressData = {
+      apelido: localStorage.getItem('ginga_apelido') || 'Usuário',
+      personagem: localStorage.getItem('ginga_personagem') || 'IMG/BOI DANÇANDO.png',
+      quadrilha_progress: parseInt(localStorage.getItem('progress_trilha_quadrilha') || '1'),
+      hiphop_progress: parseInt(localStorage.getItem('progress_trilha_hiphop') || '1'),
+      gaucha_progress: parseInt(localStorage.getItem('progress_trilha_gaucha') || '1'),
+      afro_progress: parseInt(localStorage.getItem('progress_trilha_afro') || '1'),
+      achievements_unlocked: JSON.parse(localStorage.getItem('ginga_achievements') || '[]')
+    };
+    await window.supabaseAPI.saveProgressToCloud(progressData);
+  };
 
   // ── Logout via URL: index.html?sair=1 limpa tudo e mostra a splash ──
   const urlParams = new URLSearchParams(window.location.search);
@@ -54,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       btnLogout.innerHTML = '<span class="btn-label">SAINDO...</span>';
       localStorage.clear();
+      if (window.supabaseAPI) await window.supabaseAPI.signOut();
       // Redireciona para index com ?sair=1 para garantir limpeza antes do guard
       window.location.href = 'index.html?sair=1';
     });
@@ -184,10 +198,12 @@ function initSettingsModal() {
     });
   }
 
-  // Logout
   const btnLogout = modal.querySelector('.btn-logout');
-  btnLogout.addEventListener('click', () => {
-    window.location.href = 'index.html';
+  btnLogout.addEventListener('click', async () => {
+    btnLogout.innerHTML = 'SAINDO...';
+    localStorage.clear();
+    if (window.supabaseAPI) await window.supabaseAPI.signOut();
+    window.location.href = 'index.html?sair=1';
   });
 }
 
@@ -310,6 +326,7 @@ function initNavigation() {
       if (inputApelido && inputApelido.value.trim() !== "") {
         const apelidoValue = inputApelido.value.trim();
         localStorage.setItem('ginga_apelido', apelidoValue);
+        if (window.syncProgressToCloud) window.syncProgressToCloud();
       }
 
       // Verifica se viemos da tela de perfil para redirecionar de volta
@@ -348,6 +365,7 @@ function initNavigation() {
         const src = selectedGingaCard.getAttribute('src');
         // Salva localmente
         localStorage.setItem('ginga_personagem', src);
+        if (window.syncProgressToCloud) window.syncProgressToCloud();
       }
 
       // Verifica se viemos da tela de perfil para redirecionar corretamente
@@ -993,6 +1011,7 @@ window.completeCurrentLevel = function () {
   if (current === progress) {
     // Salva no localStorage (modo offline)
     localStorage.setItem(progressKey, progress + 1);
+    if (window.syncProgressToCloud) window.syncProgressToCloud();
   }
 };
 
@@ -1252,6 +1271,7 @@ function unlockAchievement(id) {
   if (unlocked.includes(id)) return false;  // Salva a lista inteira (offline)
   unlocked.push(id);
   localStorage.setItem('ginga_achievements', JSON.stringify(unlocked));
+  if (window.syncProgressToCloud) window.syncProgressToCloud();
   return true; // nova conquista!
 }
 
@@ -1617,6 +1637,20 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             localStorage.setItem('ginga_apelido', 'Usuário');
           }
+
+          if (window.supabaseAPI && window.supabaseAPI.loadProgressFromCloud) {
+            const cp = await window.supabaseAPI.loadProgressFromCloud();
+            if (cp) {
+              if (cp.apelido) localStorage.setItem('ginga_apelido', cp.apelido);
+              if (cp.personagem) localStorage.setItem('ginga_personagem', cp.personagem);
+              if (cp.quadrilha_progress) localStorage.setItem('progress_trilha_quadrilha', cp.quadrilha_progress);
+              if (cp.hiphop_progress) localStorage.setItem('progress_trilha_hiphop', cp.hiphop_progress);
+              if (cp.gaucha_progress) localStorage.setItem('progress_trilha_gaucha', cp.gaucha_progress);
+              if (cp.afro_progress) localStorage.setItem('progress_trilha_afro', cp.afro_progress);
+              if (cp.achievements_unlocked) localStorage.setItem('ginga_achievements', JSON.stringify(cp.achievements_unlocked));
+            }
+          }
+
           window.location.href = 'ritmos.html';
         }
       } else {
