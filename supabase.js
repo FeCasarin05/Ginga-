@@ -1,30 +1,54 @@
 // ==========================================
-// CONFIGURAÇÃO DO SUPABASE
+// CONFIGURAÃ‡ÃƒO DO SUPABASE
 // ==========================================
 
-// IMPORTANTE: O usuário precisa substituir essas variáveis com as chaves reais do projeto no Supabase
+// IMPORTANTE: O usuÃ¡rio precisa substituir essas variÃ¡veis com as chaves reais do projeto no Supabase
 const SUPABASE_URL = 'https://fglpuhiwjmtvfobyqedq.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZnbHB1aGl3am10dmZvYnlxZWRxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM3MjQ0NDMsImV4cCI6MjA5OTMwMDQ0M30.gbZ-MdvBGdesAqM0lXazkpscUz2m8oICfPyUZcGb3oE';
 
 // Inicializa o cliente do Supabase
 // Requer que a biblioteca do Supabase seja carregada no HTML
-let supabase;
+let supabaseClient;
+
+// Wrapper seguro para o LocalStorage (Evita erro no protocolo file:///)
+const safeStorage = {
+  memory: {},
+  getItem: (key) => {
+    try { return window.localStorage.getItem(key); } 
+    catch(e) { return safeStorage.memory[key] || null; }
+  },
+  setItem: (key, value) => {
+    try { window.localStorage.setItem(key, value); } 
+    catch(e) { safeStorage.memory[key] = value; }
+  },
+  removeItem: (key) => {
+    try { window.localStorage.removeItem(key); } 
+    catch(e) { delete safeStorage.memory[key]; }
+  }
+};
 
 try {
   if (window.supabase && SUPABASE_URL !== 'SUA_URL_AQUI') {
-    supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        storage: safeStorage,
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: true
+      }
+    });
   } else {
-    console.error('Biblioteca do Supabase não encontrada no window.');
+    console.error('Biblioteca do Supabase nÃ£o encontrada no window.');
   }
-} catch (e) {
+} catch(e) {
   console.error('Erro ao inicializar Supabase:', e);
 }
 
-// Funções de Autenticação
+// FunÃ§Ãµes de AutenticaÃ§Ã£o
 async function signUp(email, password, apelido) {
-  if (!supabase) return { error: { message: 'Supabase não configurado.' } };
+  if (!supabaseClient) return { error: { message: 'Supabase nÃ£o configurado.' } };
 
-  const { data, error } = await supabase.auth.signUp({
+  const { data, error } = await supabaseClient.auth.signUp({
     email,
     password,
     options: {
@@ -37,9 +61,9 @@ async function signUp(email, password, apelido) {
 }
 
 async function signIn(email, password) {
-  if (!supabase) return { error: { message: 'Supabase não configurado.' } };
+  if (!supabaseClient) return { error: { message: 'Supabase nÃ£o configurado.' } };
 
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
     email,
     password
   });
@@ -47,25 +71,25 @@ async function signIn(email, password) {
 }
 
 async function signOut() {
-  if (!supabase) return;
-  const { error } = await supabase.auth.signOut();
+  if (!supabaseClient) return;
+  const { error } = await supabaseClient.auth.signOut();
   if (!error) {
     window.location.href = 'login.html';
   }
 }
 
 async function checkUser() {
-  if (!supabase) return null;
-  const { data: { user } } = await supabase.auth.getUser();
+  if (!supabaseClient) return null;
+  const { data: { user } } = await supabaseClient.auth.getUser();
   return user;
 }
 
-// Funções de Progresso
+// FunÃ§Ãµes de Progresso
 async function saveProgressToCloud(progressData) {
   const user = await checkUser();
-  if (!user) return; // Só salva na nuvem se estiver logado
+  if (!user) return; // SÃ³ salva na nuvem se estiver logado
 
-  const { error } = await supabase
+  const { error } = await supabaseClient
     .from('profiles')
     .upsert({
       id: user.id,
@@ -82,7 +106,7 @@ async function loadProgressFromCloud() {
   const user = await checkUser();
   if (!user) return null;
 
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('profiles')
     .select('*')
     .eq('id', user.id)
@@ -96,7 +120,7 @@ async function loadProgressFromCloud() {
   return data;
 }
 
-// Exporta as funções para serem usadas no app.js
+// Exporta as funÃ§Ãµes para serem usadas no app.js
 window.supabaseAPI = {
   signUp,
   signIn,

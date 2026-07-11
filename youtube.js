@@ -1,6 +1,6 @@
 // YouTube Player API Integration
 const YOUTUBE_MAP = {
-  // Série 1
+  // SÃ©rie 1
   '1_casal_A': 'PU2NMhEDI9Y',
   '1_casal_B': 'yX_ILrxL4Bc',
   '1_casal_C': 'PLSbGxcDfWQ',
@@ -19,7 +19,7 @@ var globalYTPlayer;
 var currentPlayingLevelId = null;
 
 function onYouTubeIframeAPIReady() {
-  // Só inicializa o player API se o elemento existir nesta página
+  // SÃ³ inicializa o player API se o elemento existir nesta pÃ¡gina
   if (!document.getElementById('youtubePlayer')) return;
 
   globalYTPlayer = new YT.Player('youtubePlayer', {

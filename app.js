@@ -1,6 +1,6 @@
 /* ================================================================
-   GINGA! – app.js
-   Interações: ripple, navegação futura, acessibilidade por teclado
+   GINGA! â€“ app.js
+   InteraÃ§Ãµes: ripple, navegaÃ§Ã£o futura, acessibilidade por teclado
    ================================================================ */
 
 // ================================================================
@@ -11,24 +11,24 @@
   const currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
   const publicPages = ['index.html', 'login.html', 'criar-conta.html', 'apelido.html', ''];
 
-  // ── Logout via URL: index.html?sair=1 limpa tudo e mostra a splash ──
+  // â”€â”€ Logout via URL: index.html?sair=1 limpa tudo e mostra a splash â”€â”€
   const urlParams = new URLSearchParams(window.location.search);
   if ((currentPage === 'index.html' || currentPage === '') && urlParams.get('sair') === '1') {
     localStorage.clear();
-    // Remove o parâmetro da URL sem recarregar a página
+    // Remove o parÃ¢metro da URL sem recarregar a pÃ¡gina
     window.history.replaceState({}, '', window.location.pathname);
     return; // Mostra index.html normalmente
   }
 
   const hasApelido = localStorage.getItem('ginga_apelido');
 
-  // Se já tem apelido e está na tela inicial/login, pula direto para ritmos
+  // Se jÃ¡ tem apelido e estÃ¡ na tela inicial/login, pula direto para ritmos
   if ((currentPage === 'index.html' || currentPage === '' || currentPage === 'login.html' || currentPage === 'criar-conta.html') && hasApelido) {
     window.location.replace('ritmos.html');
     return;
   }
   
-  // Se não tem apelido e está tentando acessar tela interna, bloqueia
+  // Se nÃ£o tem apelido e estÃ¡ tentando acessar tela interna, bloqueia
   if (!publicPages.includes(currentPage) && !hasApelido) {
     window.location.replace('index.html');
   }
@@ -38,15 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigation();
   initSettingsModal();
   initRoleModal(); // Modal de escolha de papel (Dama/Cavalheiro/Casal)
-  loadUserData(); // Carrega os dados salvos do usuário
+  loadUserData(); // Carrega os dados salvos do usuÃ¡rio
   updateStreak(); // Atualiza e calcula a ofensiva de dias
-  updateProfileStats(); // Atualiza contador de troféus e módulos no perfil
+  updateProfileStats(); // Atualiza contador de trofÃ©us e mÃ³dulos no perfil
   initProgression(); // Initialize level progression
   initSuccessModal();
   initAchievementPopup(); // Popup de conquista desbloqueada
   renderConquistas(); // Renderiza conquistas no perfil e na tela de conquistas
-  initGlossarioSearch(); // Ativa a busca de termos do glossário
-  initRecompensaScreen(); // Textos dinâmicos de recompensa
+  initGlossarioSearch(); // Ativa a busca de termos do glossÃ¡rio
+  initRecompensaScreen(); // Textos dinÃ¢micos de recompensa
 
   const btnLogout = document.getElementById('btnLogout');
   if (btnLogout) {
@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 /* ================================================================
-   MODAL DE CONFIGURAÇÕES (INJEÇÃO DINÂMICA)
+   MODAL DE CONFIGURAÃ‡Ã•ES (INJEÃ‡ÃƒO DINÃ‚MICA)
    ================================================================ */
 
 function initSettingsModal() {
@@ -72,7 +72,7 @@ function initSettingsModal() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
         </button>
         
-        <h2 class="font-bebas settings-title">CONFIGURAÇÕES</h2>
+        <h2 class="font-bebas settings-title">CONFIGURAÃ‡Ã•ES</h2>
         
         <div class="settings-list">
           <div class="setting-item">
@@ -93,7 +93,7 @@ function initSettingsModal() {
               <div class="setting-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
               </div>
-              <span class="setting-text">Música de Fundo</span>
+              <span class="setting-text">MÃºsica de Fundo</span>
             </div>
             <label class="switch">
               <input type="checkbox" checked>
@@ -106,7 +106,7 @@ function initSettingsModal() {
               <div class="setting-icon">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
               </div>
-              <span class="setting-text">Notificações</span>
+              <span class="setting-text">NotificaÃ§Ãµes</span>
             </div>
             <label class="switch">
               <input type="checkbox">
@@ -134,7 +134,7 @@ function initSettingsModal() {
               </div>
               <span class="setting-text">Idioma</span>
             </div>
-            <span class="setting-text" style="color: #B58A55; font-size: 12px;">Português (BR)</span>
+            <span class="setting-text" style="color: #B58A55; font-size: 12px;">PortuguÃªs (BR)</span>
           </div>
         </div>
         
@@ -198,7 +198,7 @@ function initNavigation() {
   const btnPrimary = document.getElementById('btn-comecar');
   const btnSecondary = document.getElementById('btn-comunidade');
 
-  /* ── Efeito ripple ao clicar ── */
+  /* â”€â”€ Efeito ripple ao clicar â”€â”€ */
   function addRipple(e, el) {
     const old = el.querySelector('.ripple');
     if (old) old.remove();
@@ -236,19 +236,19 @@ function initNavigation() {
     span.addEventListener('animationend', () => span.remove());
   }
 
-  /* ── Botão COMEÇAR AGORA ── */
+  /* â”€â”€ BotÃ£o COMEÃ‡AR AGORA â”€â”€ */
   if (btnPrimary) {
     btnPrimary.addEventListener('mousedown', (e) => addRipple(e, btnPrimary));
     btnPrimary.addEventListener('touchstart', (e) => addRipple(e, btnPrimary), { passive: true });
   }
 
-  /* ── Botão JÁ SOU DA COMUNIDADE ── */
+  /* â”€â”€ BotÃ£o JÃ SOU DA COMUNIDADE â”€â”€ */
   if (btnSecondary) {
     btnSecondary.addEventListener('mousedown', (e) => addRipple(e, btnSecondary));
     btnSecondary.addEventListener('touchstart', (e) => addRipple(e, btnSecondary), { passive: true });
   }
 
-  /* ── Acessibilidade: Enter / Space ── */
+  /* â”€â”€ Acessibilidade: Enter / Space â”€â”€ */
   [btnPrimary, btnSecondary].forEach((btn) => {
     if (!btn) return;
     btn.addEventListener('keydown', (e) => {
@@ -259,7 +259,7 @@ function initNavigation() {
     });
   });
 
-  /* ── Protótipo: Login com Supabase ── */
+  /* â”€â”€ ProtÃ³tipo: Login com Supabase â”€â”€ */
   const formLogin = document.getElementById('form-login');
   if (formLogin) {
     formLogin.addEventListener('submit', async (e) => {
@@ -271,7 +271,7 @@ function initNavigation() {
       const email = document.getElementById('login-email').value;
       
       // Em modo 100% offline, vamos apenas mockar um login definindo um apelido
-      // extraído do email, para não quebrar a experiência de quem usa a tela de login.
+      // extraÃ­do do email, para nÃ£o quebrar a experiÃªncia de quem usa a tela de login.
       setTimeout(() => {
         const apelidoMock = email.split('@')[0];
         localStorage.setItem('ginga_apelido', apelidoMock);
@@ -280,7 +280,7 @@ function initNavigation() {
     });
   }
 
-  /* ── Protótipo: Formulário de Criar Conta ── */
+  /* â”€â”€ ProtÃ³tipo: FormulÃ¡rio de Criar Conta â”€â”€ */
   const formSignup = document.getElementById('form-signup');
   if (formSignup) {
     formSignup.addEventListener('submit', async (e) => {
@@ -299,7 +299,7 @@ function initNavigation() {
     });
   }
 
-  /* ── Protótipo: Apelido sem validação ── */
+  /* â”€â”€ ProtÃ³tipo: Apelido sem validaÃ§Ã£o â”€â”€ */
   const formApelido = document.getElementById('form-apelido');
   if (formApelido) {
     formApelido.addEventListener('submit', (e) => {
@@ -322,7 +322,7 @@ function initNavigation() {
     });
   }
 
-  /* ── Protótipo: Seleção de Ginga ── */
+  /* â”€â”€ ProtÃ³tipo: SeleÃ§Ã£o de Ginga â”€â”€ */
   const cards = document.querySelectorAll('.ginga-card');
   cards.forEach(card => {
     card.addEventListener('click', () => {
@@ -336,7 +336,7 @@ function initNavigation() {
     });
   });
 
-  /* ── Protótipo: Avançar para Ritmos ── */
+  /* â”€â”€ ProtÃ³tipo: AvanÃ§ar para Ritmos â”€â”€ */
   const btnVamosNessa = document.querySelector('.btn-vamos-nessa');
   if (btnVamosNessa) {
     btnVamosNessa.addEventListener('click', (e) => {
@@ -360,10 +360,10 @@ function initNavigation() {
     });
   }
 
-  /* ── Botão de Voltar Global ── */
+  /* â”€â”€ BotÃ£o de Voltar Global â”€â”€ */
   document.querySelectorAll('.btn-back').forEach(btn => {
     btn.addEventListener('click', () => {
-      // Prioridade: Se tiver classe específica para ritmos, vai pra ritmos
+      // Prioridade: Se tiver classe especÃ­fica para ritmos, vai pra ritmos
       if (btn.classList.contains('btn-back-to-ritmos')) {
         window.location.href = 'ritmos.html';
       } else {
@@ -372,14 +372,14 @@ function initNavigation() {
     });
   });
 
-  /* ── Protótipo: Ritmos Animation e Navegação ── */
+  /* â”€â”€ ProtÃ³tipo: Ritmos Animation e NavegaÃ§Ã£o â”€â”€ */
   const ritmoCards = document.querySelectorAll('.ritmo-card');
   ritmoCards.forEach(card => {
     card.addEventListener('click', (e) => {
       e.preventDefault();
-      // Remove a classe caso o usuário clique muito rápido
+      // Remove a classe caso o usuÃ¡rio clique muito rÃ¡pido
       card.classList.remove('card-clicked');
-      // Força um reflow para reiniciar a animação
+      // ForÃ§a um reflow para reiniciar a animaÃ§Ã£o
       void card.offsetWidth;
       card.classList.add('card-clicked');
 
@@ -393,7 +393,7 @@ function initNavigation() {
     });
   });
 
-  /* ── Protótipo: Botão Continuar Jornada (Recompensa) ── */
+  /* â”€â”€ ProtÃ³tipo: BotÃ£o Continuar Jornada (Recompensa) â”€â”€ */
   const btnContinuarJornada = document.querySelector('.btn-continuar-jornada');
   if (btnContinuarJornada) {
     btnContinuarJornada.addEventListener('click', (e) => {
@@ -402,7 +402,7 @@ function initNavigation() {
     });
   }
 
-  /* ── Protótipo: Botão Continuar Final (Recompensa Final) ── */
+  /* â”€â”€ ProtÃ³tipo: BotÃ£o Continuar Final (Recompensa Final) â”€â”€ */
   const btnContinuarFinal = document.querySelector('.btn-continuar-final');
   if (btnContinuarFinal) {
     btnContinuarFinal.addEventListener('click', (e) => {
@@ -411,7 +411,7 @@ function initNavigation() {
     });
   }
 
-  /* ── Protótipo: Tela de Dança (Modal de Saída) ── */
+  /* â”€â”€ ProtÃ³tipo: Tela de DanÃ§a (Modal de SaÃ­da) â”€â”€ */
   const btnDancaBack = document.querySelector('.btn-danca-back');
   const exitModal = document.getElementById('exitModal');
   const btnModalNo = document.querySelector('.modal-btn-no');
@@ -431,16 +431,16 @@ function initNavigation() {
 }
 
 /* ================================================================
-   CARREGAR DADOS DO USUÁRIO (APELIDO E PERSONAGEM)
+   CARREGAR DADOS DO USUÃRIO (APELIDO E PERSONAGEM)
    ================================================================ */
 
 function loadUserData() {
   const apelido = localStorage.getItem('ginga_apelido');
   let personagem = localStorage.getItem('ginga_personagem');
 
-  // Se não tem personagem salvo, usa o padrão do Boi
+  // Se nÃ£o tem personagem salvo, usa o padrÃ£o do Boi
   if (!personagem) {
-    personagem = 'IMG/BOI DANÇANDO.png';
+    personagem = 'IMG/BOI DANÃ‡ANDO.png';
   }
 
   // 1. Atualizar Apelido (Tela de Perfil)
@@ -453,7 +453,7 @@ function loadUserData() {
   const allChars = document.querySelectorAll('.user-avatar, .user-avatar-wrap img, .main-avatar-img, .ritmos-hero-img, .aprender-char-img, .sobre-char-img');
   
   allChars.forEach(img => {
-    // Ignorar a nota musical que tem class user-avatar-wrap img mas não é avatar
+    // Ignorar a nota musical que tem class user-avatar-wrap img mas nÃ£o Ã© avatar
     if (img.src.includes('NOTA%20MUSICAL')) return;
 
     img.src = personagem;
@@ -469,7 +469,7 @@ function loadUserData() {
   // 3. Atualizar Mensagem na tela Aprender
   const aprenderChatBubble = document.querySelector('.aprender-main .chat-bubble');
   if (aprenderChatBubble) {
-    let charName = "Bumbá";
+    let charName = "BumbÃ¡";
     const personUppercase = personagem.toUpperCase();
     if (personUppercase.includes('HIPHOP') || personUppercase.includes('HIP-HOP')) {
       charName = "Rima";
@@ -478,7 +478,7 @@ function loadUserData() {
     } else if (personUppercase.includes('AFRO')) {
       charName = "Batuque";
     }
-    aprenderChatBubble.textContent = `Oi! Sou o ${charName}. Vamos descobrir as danças que contam a história do nosso Brasil?`;
+    aprenderChatBubble.textContent = `Oi! Sou o ${charName}. Vamos descobrir as danÃ§as que contam a histÃ³ria do nosso Brasil?`;
   }
 }
 
@@ -553,19 +553,19 @@ function updateStreak() {
 }
 
 /* ================================================================
-   SISTEMA DE PROGRESSÃO DA TRILHA
+   SISTEMA DE PROGRESSÃƒO DA TRILHA
    ================================================================ */
 
 function initProgression() {
   const trilhaContainer = document.querySelector('.nodes-list');
-  // Se estamos na tela de trilha, renderizamos os nós dinamicamente
+  // Se estamos na tela de trilha, renderizamos os nÃ³s dinamicamente
   if (trilhaContainer && window.location.pathname.includes('trilha')) {
     renderTrilha(trilhaContainer);
   }
 
-  // Finaliza o nível ao sair da tela de dança (simulação do vídeo completo)
-  // Em danca.html, o botão é um <a>. Em trilha.html, é um <button id="btnVideoYes">.
-  // Só queremos completar o nível automaticamente na tela danca.html (onde não tem vídeo real).
+  // Finaliza o nÃ­vel ao sair da tela de danÃ§a (simulaÃ§Ã£o do vÃ­deo completo)
+  // Em danca.html, o botÃ£o Ã© um <a>. Em trilha.html, Ã© um <button id="btnVideoYes">.
+  // SÃ³ queremos completar o nÃ­vel automaticamente na tela danca.html (onde nÃ£o tem vÃ­deo real).
   const btnModalYes = document.querySelector('.modal-btn-yes');
   if (btnModalYes && window.location.pathname.includes('danca.html')) {
     btnModalYes.addEventListener('click', () => {
@@ -575,8 +575,8 @@ function initProgression() {
     // Popula o indicador de dificuldade na tela danca.html
     const dancaDiffEl = document.getElementById('dancaDiffIndicator');
     const currentLevel = parseInt(localStorage.getItem('ginga_current_playing_level')) || 1;
-    const dancaPhase = (currentLevel - 1) % 4; // 0=fácil, 1=intermediário, 2=difícil
-    const dNames = ['NÍVEL FÁCIL', 'NÍVEL INTERMEDIÁRIO', 'NÍVEL DIFÍCIL'];
+    const dancaPhase = (currentLevel - 1) % 4; // 0=fÃ¡cil, 1=intermediÃ¡rio, 2=difÃ­cil
+    const dNames = ['NÃVEL FÃCIL', 'NÃVEL INTERMEDIÃRIO', 'NÃVEL DIFÃCIL'];
     const dClasses = ['dot-easy', 'dot-medium', 'dot-hard'];
     if (dancaDiffEl && dancaPhase < 3) {
       const dotsH = dClasses.map((cls, i) => {
@@ -590,7 +590,7 @@ function initProgression() {
     }
   }
 
-  // Finaliza a recompensa e libera próximo nível ao clicar em Continuar Jornada
+  // Finaliza a recompensa e libera prÃ³ximo nÃ­vel ao clicar em Continuar Jornada
   const btnContinuarJornada = document.querySelector('.btn-continuar-jornada');
   if (btnContinuarJornada) {
     btnContinuarJornada.addEventListener('click', () => {
@@ -598,7 +598,7 @@ function initProgression() {
     });
   }
 
-  // Lógica do Modal de Vídeo e Saída
+  // LÃ³gica do Modal de VÃ­deo e SaÃ­da
   const closeVideo = document.getElementById('closeVideoModal');
   const videoExitModal = document.getElementById('videoExitModal');
   const btnVideoNo = document.getElementById('btnVideoNo');
@@ -641,13 +641,13 @@ window.openVideoModal = function(levelId) {
   currentPlayingLevelId = levelId;
   saveCurrentLevel(levelId);
 
-  // ── Indicador de Dificuldade ──
+  // â”€â”€ Indicador de Dificuldade â”€â”€
   const videoContainer = modal.querySelector('.video-modal-container');
   let diffIndicator = videoContainer.querySelector('.difficulty-indicator');
   if (diffIndicator) diffIndicator.remove();
 
   const phase = (levelId - 1) % 4;
-  const difficultyNames = ['NÍVEL FÁCIL', 'NÍVEL INTERMEDIÁRIO', 'NÍVEL DIFÍCIL'];
+  const difficultyNames = ['NÃVEL FÃCIL', 'NÃVEL INTERMEDIÃRIO', 'NÃVEL DIFÃCIL'];
   const difficultyClasses = ['dot-easy', 'dot-medium', 'dot-hard'];
   if (phase < 3) {
     const activeName = difficultyNames[phase];
@@ -665,7 +665,7 @@ window.openVideoModal = function(levelId) {
     videoContainer.appendChild(diffIndicator);
   }
 
-  // ── Determina o ID do YouTube ──
+  // â”€â”€ Determina o ID do YouTube â”€â”€
   const role = localStorage.getItem('ginga_dance_role') || 'cavalheiro';
   let seriesNum = Math.floor((levelId - 1) / 4) + 1;
   const letters = ['A', 'B', 'C'];
@@ -685,8 +685,8 @@ window.openVideoModal = function(levelId) {
 
   if (!videoId) {
     playerDiv.innerHTML = `<div style="color:white;display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;">
-      <span style="font-size:48px;">🎬</span>
-      <p style="font-family:sans-serif;text-align:center;padding:16px;">Vídeo ainda não disponível para esta fase.<br>Em breve!</p>
+      <span style="font-size:48px;">ðŸŽ¬</span>
+      <p style="font-family:sans-serif;text-align:center;padding:16px;">VÃ­deo ainda nÃ£o disponÃ­vel para esta fase.<br>Em breve!</p>
     </div>`;
     return;
   }
@@ -695,7 +695,7 @@ window.openVideoModal = function(levelId) {
   if (globalYTPlayer && globalYTPlayer.loadVideoById) {
     globalYTPlayer.loadVideoById({ videoId: videoId, startSeconds: 0 });
   } else {
-    // Player ainda não inicializado – cria agora
+    // Player ainda nÃ£o inicializado â€“ cria agora
     globalYTPlayer = new YT.Player('youtubePlayer', {
       height: '100%',
       width: '100%',
@@ -725,7 +725,7 @@ function renderTrilha(container) {
   localStorage.setItem('ginga_current_rhythm', rhythm);
   let progressKey = `ginga_${rhythm}_progress`;
 
-  // Utilizando localStorage para não persistir o progresso ao fechar o app durante a fase de testes
+  // Utilizando localStorage para nÃ£o persistir o progresso ao fechar o app durante a fase de testes
   let progress = parseInt(localStorage.getItem(progressKey));
   if (isNaN(progress)) {
     progress = 1;
@@ -736,27 +736,27 @@ function renderTrilha(container) {
     { id: 1, type: 'regular', title: '', transform: 'translateX(25px)', marginTop: '0' },
     { id: 2, type: 'regular', title: '', transform: 'translateX(-35px)', marginTop: '60px' },
     { id: 3, type: 'regular', title: '', transform: 'translateX(15px)', marginTop: '60px' },
-    { id: 4, type: 'milestone', title: 'O BAILÃO', transform: 'translateX(-15px)', marginTop: '70px', color: 'yellow', icon: 'estrela amarela.png', link: 'recompensa.html' },
+    { id: 4, type: 'milestone', title: 'O BAILÃƒO', transform: 'translateX(-15px)', marginTop: '70px', color: 'yellow', icon: 'estrela amarela.png', link: 'recompensa.html' },
     { id: 5, type: 'regular', title: '', transform: 'translateX(40px)', marginTop: '80px' },
     { id: 6, type: 'regular', title: '', transform: 'translateX(-40px)', marginTop: '80px' },
     { id: 7, type: 'regular', title: '', transform: 'translateX(25px)', marginTop: '80px' },
-    { id: 8, type: 'milestone', title: 'DA ROÇA', transform: 'translateX(5px)', marginTop: '80px', color: 'orange', icon: 'estrela laranja.png', link: 'recompensa.html' },
+    { id: 8, type: 'milestone', title: 'DA ROÃ‡A', transform: 'translateX(5px)', marginTop: '80px', color: 'orange', icon: 'estrela laranja.png', link: 'recompensa.html' },
     { id: 9, type: 'regular', title: '', transform: 'translateX(40px)', marginTop: '80px' },
     { id: 10, type: 'regular', title: '', transform: 'translateX(-35px)', marginTop: '80px' },
     { id: 11, type: 'regular', title: '', transform: 'translateX(30px)', marginTop: '80px' },
-    { id: 12, type: 'milestone', title: 'ARRAIÁ', transform: 'translateX(-10px)', marginTop: '80px', color: 'red', icon: 'estrela vermelha.png', link: 'recompensa.html' },
+    { id: 12, type: 'milestone', title: 'ARRAIÃ', transform: 'translateX(-10px)', marginTop: '80px', color: 'red', icon: 'estrela vermelha.png', link: 'recompensa.html' },
     { id: 13, type: 'regular', title: '', transform: 'translateX(25px)', marginTop: '80px' },
     { id: 14, type: 'regular', title: '', transform: 'translateX(-25px)', marginTop: '80px' },
     { id: 15, type: 'regular', title: '', transform: 'translateX(35px)', marginTop: '80px' },
-    { id: 16, type: 'milestone', title: 'FESTANÇA', transform: 'translateX(-15px)', marginTop: '80px', color: 'yellow', icon: 'estrela amarela.png', link: 'recompensa.html' },
+    { id: 16, type: 'milestone', title: 'FESTANÃ‡A', transform: 'translateX(-15px)', marginTop: '80px', color: 'yellow', icon: 'estrela amarela.png', link: 'recompensa.html' },
     { id: 17, type: 'regular', title: '', transform: 'translateX(30px)', marginTop: '80px' },
     { id: 18, type: 'regular', title: '', transform: 'translateX(-30px)', marginTop: '80px' },
     { id: 19, type: 'regular', title: '', transform: 'translateX(20px)', marginTop: '80px' },
-    { id: 20, type: 'milestone', title: 'QUADRILHÃO', transform: 'translateX(-5px)', marginTop: '80px', color: 'orange', icon: 'estrela laranja.png', link: 'recompensa.html' },
+    { id: 20, type: 'milestone', title: 'QUADRILHÃƒO', transform: 'translateX(-5px)', marginTop: '80px', color: 'orange', icon: 'estrela laranja.png', link: 'recompensa.html' },
     { id: 21, type: 'regular', title: '', transform: 'translateX(35px)', marginTop: '80px' },
     { id: 22, type: 'regular', title: '', transform: 'translateX(-40px)', marginTop: '80px' },
     { id: 23, type: 'regular', title: '', transform: 'translateX(25px)', marginTop: '80px' },
-    { id: 24, type: 'final', title: 'CONQUISTA FINAL', transform: 'translateX(0px)', marginTop: '80px', color: 'dark-red', icon: 'troféu.png', link: 'recompensa-final.html' }
+    { id: 24, type: 'final', title: 'CONQUISTA FINAL', transform: 'translateX(0px)', marginTop: '80px', color: 'dark-red', icon: 'trofÃ©u.png', link: 'recompensa-final.html' }
   ];
 
   let html = '';
@@ -775,7 +775,7 @@ function renderTrilha(container) {
     let currentMilestoneIcon = node.icon;
     
     if (rhythm === 'quadrilha') {
-      // Cores da quadrilha: amarelo → laranja → vermelho, ciclo de 3 fases (bandeirinhas juninas)
+      // Cores da quadrilha: amarelo â†’ laranja â†’ vermelho, ciclo de 3 fases (bandeirinhas juninas)
       let phaseColor = '';
       // Grupo 1 (1-4): Amarelo | Grupo 2 (5-8): Laranja | Grupo 3 (9-12): Vermelho
       // Grupo 4 (13-16): Amarelo | Grupo 5 (17-20): Laranja | Grupo 6 (21-24): Vermelho
@@ -791,7 +791,7 @@ function renderTrilha(container) {
         phaseColor = '#B52026'; // Vermelho quadrilha
         currentActiveIcon = 'icone bandeira vermelha.png';
         if (node.type === 'milestone') currentMilestoneIcon = 'estrela vermelha.png';
-        if (node.type === 'final') currentMilestoneIcon = 'troféu.png';
+        if (node.type === 'final') currentMilestoneIcon = 'trofÃ©u.png';
       }
       
       if (isCompleted) {
@@ -822,7 +822,7 @@ function renderTrilha(container) {
         phaseColor = '#9D0208';
         currentActiveIcon = 'bandeira hiphop.png';
         if (node.type === 'milestone') currentMilestoneIcon = 'estrela hiphop.png';
-        if (node.type === 'final') currentMilestoneIcon = 'troféu.png';
+        if (node.type === 'final') currentMilestoneIcon = 'trofÃ©u.png';
       }
       
       if (isCompleted) {
@@ -831,7 +831,7 @@ function renderTrilha(container) {
       } else if (isActive) {
         customStyle = `background-color: ${phaseColor} !important; border-color: #FFF !important; box-shadow: 0 4px 15px ${phaseColor}80 !important;`;
       }
-      // Se isLocked, customStyle fica vazio para manter o padrão cinza do .node-locked
+      // Se isLocked, customStyle fica vazio para manter o padrÃ£o cinza do .node-locked
       
       if (node.type === 'milestone' || node.type === 'final') {
         if (!isLocked) {
@@ -852,9 +852,9 @@ function renderTrilha(container) {
         if (node.type === 'milestone') currentMilestoneIcon = 'estrela amarela gaucha.png';
       } else {
         phaseColor = '#4F772D';
-        currentActiveIcon = 'bandeira verde gaúcha.png';
+        currentActiveIcon = 'bandeira verde gaÃºcha.png';
         if (node.type === 'milestone') currentMilestoneIcon = 'estrela verde gaucha.png';
-        if (node.type === 'final') currentMilestoneIcon = 'troféu.png';
+        if (node.type === 'final') currentMilestoneIcon = 'trofÃ©u.png';
       }
       
       if (isCompleted) {
@@ -885,7 +885,7 @@ function renderTrilha(container) {
         phaseColor = '#9D0208';
         currentActiveIcon = 'bandeira vermelha afro.png';
         if (node.type === 'milestone') currentMilestoneIcon = 'estrela vermelha afro.png';
-        if (node.type === 'final') currentMilestoneIcon = 'troféu.png';
+        if (node.type === 'final') currentMilestoneIcon = 'trofÃ©u.png';
       }
       
       if (isCompleted) {
@@ -1012,7 +1012,7 @@ function initRoleModal() {
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C9.8 2 8 3.8 8 6s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z"/><path d="M6 22l2-8 4 3 4-3 2 8"/><path d="M9 14l-3-2"/><path d="M15 14l3-2"/></svg>
         </div>
         
-        <h2 class="font-bebas role-modal-title">COMO QUER DANÇAR?</h2>
+        <h2 class="font-bebas role-modal-title">COMO QUER DANÃ‡AR?</h2>
         <p class="role-modal-subtitle">Escolha seu papel para esta aula</p>
         
         <div class="role-modal-buttons">
@@ -1071,7 +1071,7 @@ function initRoleModal() {
     });
   }
 
-  // Clique nos botões de papel
+  // Clique nos botÃµes de papel
   document.querySelectorAll('.btn-role').forEach(btn => {
     btn.addEventListener('click', () => {
       const role = btn.dataset.role;
@@ -1085,7 +1085,7 @@ function initRoleModal() {
       if (rhythm === 'quadrilha' && document.getElementById('videoModal')) {
         openVideoModal(levelId);
       } else {
-        // Para as outras trilhas que vão para danca.html
+        // Para as outras trilhas que vÃ£o para danca.html
         saveCurrentLevel(levelId);
         window.location.href = 'danca.html';
       }
@@ -1111,8 +1111,8 @@ window.openRoleModal = function(levelId) {
             </div>
             <h2 class="font-bebas" style="color: var(--clr-red, #B52026); font-size: 28px; margin-bottom: 15px; letter-spacing: 1px;">Em Breve!</h2>
             <p style="font-family: var(--font-ui, 'Montserrat', sans-serif); font-size: 14px; color: #4A4A4A; line-height: 1.5; margin-bottom: 25px; font-weight: 500;">
-              Ops! Parece que o grupo ainda está se organizando.<br><br>
-              Esta seção ainda não entrou em cena, mas chegará em uma futura atualização.<br><br>
+              Ops! Parece que o grupo ainda estÃ¡ se organizando.<br><br>
+              Esta seÃ§Ã£o ainda nÃ£o entrou em cena, mas chegarÃ¡ em uma futura atualizaÃ§Ã£o.<br><br>
               Que tal explorar outras partes do aplicativo enquanto isso?
             </p>
             <a href="ritmos.html" class="btn btn-primary" style="text-decoration: none; margin: 0 auto; display: inline-flex;">VOLTAR AOS RITMOS</a>
@@ -1122,7 +1122,7 @@ window.openRoleModal = function(levelId) {
       document.body.insertAdjacentHTML('beforeend', html);
       constModal = document.getElementById('constructionModal');
     }
-    // Timeout para permitir que o DOM atualize antes da transição de opacidade
+    // Timeout para permitir que o DOM atualize antes da transiÃ§Ã£o de opacidade
     setTimeout(() => {
       constModal.style.opacity = '1';
       constModal.style.pointerEvents = 'auto';
@@ -1143,8 +1143,8 @@ function initSuccessModal() {
         <div style="background-color: #fceceb; color: #D32F2F; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px auto;">
           <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
-        <h2 class="font-bebas" style="margin-bottom: 10px;">Fase Concluída!</h2>
-        <p style="margin-bottom: 20px;">Você completou o passo com sucesso. Continue assim!</p>
+        <h2 class="font-bebas" style="margin-bottom: 10px;">Fase ConcluÃ­da!</h2>
+        <p style="margin-bottom: 20px;">VocÃª completou o passo com sucesso. Continue assim!</p>
         <button class="btn btn-primary-red" id="btnSuccessClose" style="width: 100%;">CONTINUAR</button>
       </div>
     </div>
@@ -1170,21 +1170,21 @@ const ACHIEVEMENTS = [
   {
     id: 'primeiro_passo',
     title: 'Primeiro Passo',
-    description: 'Complete sua primeira dança',
+    description: 'Complete sua primeira danÃ§a',
     icon: '<svg viewBox="0 0 24 24" fill="white"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>',
     gradient: 'bg-gold-gradient'
   },
   {
     id: 'energia_pura',
     title: 'Energia Pura',
-    description: 'Complete 5 danças',
+    description: 'Complete 5 danÃ§as',
     icon: '<svg viewBox="0 0 24 24" fill="white"><path d="M13 2L3 14h9v8l10-12h-9l1-8z"/></svg>',
     gradient: 'bg-red-gradient'
   },
   {
     id: 'mestre_samba',
     title: 'Mestre do Samba',
-    description: 'Complete 10 danças',
+    description: 'Complete 10 danÃ§as',
     icon: '<svg viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0.5"><path d="M9 18a3 3 0 1 1-6 0c0-1.66 1.34-3 3-3s3 1.34 3 3z"/><path d="M21 6a3 3 0 1 1-6 0c0-1.66 1.34-3 3-3s3 1.34 3 3z"/><path d="M9 15V3h12v12" fill="none" stroke="white" stroke-width="2"/></svg>',
     gradient: 'bg-gold-gradient'
   },
@@ -1225,8 +1225,8 @@ const ACHIEVEMENTS = [
   },
   {
     id: 'gaucho_ouro',
-    title: 'Gaúcho de Ouro',
-    description: 'Complete a Trilha Gaúcha',
+    title: 'GaÃºcho de Ouro',
+    description: 'Complete a Trilha GaÃºcha',
     icon: '<svg viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6l1.5 3 3.5.5-2.5 2.5.5 3.5L12 14l-3 1.5.5-3.5L7 9.5 10.5 9 12 6z" fill="none" stroke="#905225" stroke-width="1.5" stroke-linejoin="round"/></svg>',
     gradient: 'bg-brown-gradient'
   },
@@ -1256,7 +1256,7 @@ function unlockAchievement(id) {
 }
 
 function checkAchievements() {
-  // Conta total de danças completadas em todas as trilhas
+  // Conta total de danÃ§as completadas em todas as trilhas
   let totalCompleted = 0;
   const rhythms = ['quadrilha', 'hiphop', 'gaucha', 'afro'];
   let trilhasComProgresso = 0;
@@ -1276,22 +1276,22 @@ function checkAchievements() {
 
   const newlyUnlocked = [];
 
-  // Primeiro Passo: completar 1 dança
+  // Primeiro Passo: completar 1 danÃ§a
   if (totalCompleted >= 1 && unlockAchievement('primeiro_passo')) {
     newlyUnlocked.push(ACHIEVEMENTS.find(a => a.id === 'primeiro_passo'));
   }
 
-  // Energia Pura: completar 5 danças
+  // Energia Pura: completar 5 danÃ§as
   if (totalCompleted >= 5 && unlockAchievement('energia_pura')) {
     newlyUnlocked.push(ACHIEVEMENTS.find(a => a.id === 'energia_pura'));
   }
 
-  // Mestre do Samba: completar 10 danças
+  // Mestre do Samba: completar 10 danÃ§as
   if (totalCompleted >= 10 && unlockAchievement('mestre_samba')) {
     newlyUnlocked.push(ACHIEVEMENTS.find(a => a.id === 'mestre_samba'));
   }
 
-  // Gingado de Ouro: desbloquear uma estrela (progress >= 5 em qualquer ritmo, pois nó 4 é estrela)
+  // Gingado de Ouro: desbloquear uma estrela (progress >= 5 em qualquer ritmo, pois nÃ³ 4 Ã© estrela)
   const hasReachedStar = rhythms.some(r => {
     const p = parseInt(localStorage.getItem(`ginga_${r}_progress`)) || 1;
     return p > 4;
@@ -1310,7 +1310,7 @@ function checkAchievements() {
     newlyUnlocked.push(ACHIEVEMENTS.find(a => a.id === 'lenda_pista'));
   }
 
-  // Conquistas específicas de cada trilha
+  // Conquistas especÃ­ficas de cada trilha
   if (trilhasCompletas.quadrilha && unlockAchievement('rei_quadrilha')) {
     newlyUnlocked.push(ACHIEVEMENTS.find(a => a.id === 'rei_quadrilha'));
   }
@@ -1331,7 +1331,7 @@ function checkAchievements() {
     }, index * 2500);
   });
 
-  // Atualiza a grid de conquistas se estiver visível
+  // Atualiza a grid de conquistas se estiver visÃ­vel
   renderConquistas();
 }
 
@@ -1352,7 +1352,7 @@ function showAchievementPopup(achievement) {
 
   popup.classList.add('active');
 
-  // Remove automaticamente após 3s
+  // Remove automaticamente apÃ³s 3s
   setTimeout(() => {
     popup.classList.remove('active');
   }, 3000);
@@ -1369,7 +1369,7 @@ function initAchievementPopup() {
         <div class="achievement-popup-text">
           <span class="achievement-popup-label font-bebas-ui">CONQUISTA DESBLOQUEADA!</span>
           <span class="achievement-popup-title font-bebas">Primeiro Passo</span>
-          <span class="achievement-popup-desc">Complete sua primeira dança</span>
+          <span class="achievement-popup-desc">Complete sua primeira danÃ§a</span>
         </div>
       </div>
     </div>
@@ -1425,7 +1425,7 @@ function renderConquistaCard(achievement, isUnlocked) {
 }
 
 /* ================================================================
-   GLOSSÁRIO - BUSCA DE TERMOS
+   GLOSSÃRIO - BUSCA DE TERMOS
    ================================================================ */
 function initGlossarioSearch() {
   const searchInput = document.querySelector('.glossario-search-input');
@@ -1455,7 +1455,7 @@ function initGlossarioSearch() {
 }
 
 /* ================================================================
-   RECOMPENSA - TEXTOS DINÂMICOS
+   RECOMPENSA - TEXTOS DINÃ‚MICOS
    ================================================================ */
 function initRecompensaScreen() {
   const recompensaSubtitle = document.querySelector('.recompensa-screen .recompensa-subtitle');
@@ -1463,16 +1463,16 @@ function initRecompensaScreen() {
 
   const currentLevel = parseInt(localStorage.getItem('ginga_current_playing_level')) || 4;
 
-  let text = 'Você completou um passo de dança<br>e está dominando a ginga!';
+  let text = 'VocÃª completou um passo de danÃ§a<br>e estÃ¡ dominando a ginga!';
   
   if (currentLevel === 4) {
-    text = 'Primeira fase concluída!<br>Você já pegou o ritmo, continue assim!';
+    text = 'Primeira fase concluÃ­da!<br>VocÃª jÃ¡ pegou o ritmo, continue assim!';
   } else if (currentLevel === 8) {
-    text = 'A base está sólida!<br>Seus passos estão cada vez melhores!';
+    text = 'A base estÃ¡ sÃ³lida!<br>Seus passos estÃ£o cada vez melhores!';
   } else if (currentLevel === 12) {
-    text = 'Metade do caminho!<br>Você está mostrando muita evolução!';
+    text = 'Metade do caminho!<br>VocÃª estÃ¡ mostrando muita evoluÃ§Ã£o!';
   } else if (currentLevel === 16) {
-    text = 'Quase um profissional!<br>A ginga já faz parte de você!';
+    text = 'Quase um profissional!<br>A ginga jÃ¡ faz parte de vocÃª!';
   } else if (currentLevel === 20) {
 }
 
@@ -1480,7 +1480,7 @@ function initRecompensaScreen() {
 }
 // YouTube Player API Integration
 const YOUTUBE_MAP = {
-  // Série 1
+  // SÃ©rie 1
   '1_casal_A': 'PU2NMhEDI9Y',
   '1_casal_B': 'yX_ILrxL4Bc',
   '1_casal_C': 'PLSbGxcDfWQ',
@@ -1491,7 +1491,7 @@ const YOUTUBE_MAP = {
   '1_dama_B': 'FUbjyBN1WG8',
   '1_dama_C': 'HQHQTgcrXP4',
 
-  // Série 2
+  // SÃ©rie 2
   '2_casal_A': 'fhEGOxrZ7Vc',
   '2_casal_B': 'ahRosAWmvdk',
   '2_casal_C': 'kaJYT_V2Zo4',
@@ -1502,7 +1502,7 @@ const YOUTUBE_MAP = {
   '2_dama_B': 'BsnKC7CT28c',
   '2_dama_C': 'P0geaqa5KyM',
 
-  // Série 3
+  // SÃ©rie 3
   '3_casal_A': '527L_rxFTvg',
   '3_casal_B': '6j7nA8kdTVo',
   '3_casal_C': 'bDgvumDB13A',
@@ -1513,7 +1513,7 @@ const YOUTUBE_MAP = {
   '3_dama_B': 'cILrNjbzPHc',
   '3_dama_C': '-F4UABUqU2M',
 
-  // Série 4
+  // SÃ©rie 4
   '4_casal_A': 'btwrf8Delyk',
   '4_casal_B': 'KN8at5yYKE8',
   '4_casal_C': 'cwkJUmddmvE',
@@ -1524,7 +1524,7 @@ const YOUTUBE_MAP = {
   '4_dama_B': 'Ll7SLe_B5bY',
   '4_dama_C': 'S8nTvDovhHI',
 
-  // Série 5
+  // SÃ©rie 5
   '5_casal_A': 'eSvInw7zMEs',
   '5_casal_B': '9mWE6mM_R2A',
   '5_casal_C': 'cxB4KwNJ0yw',
@@ -1535,7 +1535,7 @@ const YOUTUBE_MAP = {
   '5_dama_B': 'HxKpomM5Y94',
   '5_dama_C': 'OGWmLhxTK2g',
 
-  // Série 6
+  // SÃ©rie 6
   '6_casal_A': 'PLblxuDNoco',
   '6_casal_B': 'xynaVXWofZI',
   '6_casal_C': 'XDTTzZShH8k',
@@ -1555,7 +1555,7 @@ var globalYTPlayer = null;
 var currentPlayingLevelId = null;
 
 function onYouTubeIframeAPIReady() {
-  ytAPIReady = true; // API pronta — o player será criado quando o modal abrir
+  ytAPIReady = true; // API pronta â€” o player serÃ¡ criado quando o modal abrir
 }
 
 function onPlayerStateChange(event) {
@@ -1591,13 +1591,13 @@ function onPlayerStateChange(event) {
 }
 
 // ================================================================
-// INTEGRAÇÃO COM SUPABASE (AUTH - LOGIN E CADASTRO)
+// INTEGRAÃ‡ÃƒO COM SUPABASE (AUTH - LOGIN E CADASTRO)
 // ================================================================
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('form-login');
   if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault(); // Impede o reload automático da página (action=ritmos.html)
+      e.preventDefault(); // Impede o reload automÃ¡tico da pÃ¡gina (action=ritmos.html)
       const email = document.getElementById('login-email').value;
       const senha = document.getElementById('login-senha').value;
       
@@ -1608,19 +1608,19 @@ document.addEventListener('DOMContentLoaded', () => {
       if (window.supabaseAPI) {
         const { data, error } = await window.supabaseAPI.signIn(email, senha);
         if (error) {
-          alert('Erro ao fazer login: ' + (error.message || 'Credenciais inválidas.'));
+          alert('Erro ao fazer login: ' + (error.message || 'Credenciais invÃ¡lidas.'));
           btn.innerHTML = originalText;
         } else {
           // Extrair apelido e prosseguir
           if (data.user && data.user.user_metadata && data.user.user_metadata.apelido) {
              localStorage.setItem('ginga_apelido', data.user.user_metadata.apelido);
           } else {
-             localStorage.setItem('ginga_apelido', 'Usuário');
+             localStorage.setItem('ginga_apelido', 'UsuÃ¡rio');
           }
           window.location.href = 'ritmos.html';
         }
       } else {
-        alert("Erro: O Supabase não foi carregado corretamente.");
+        alert("Erro: O Supabase nÃ£o foi carregado corretamente.");
         btn.innerHTML = originalText;
       }
     });
@@ -1636,7 +1636,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const confirmar = document.getElementById('confirmar').value;
       
       if (senha !== confirmar) {
-        alert("As senhas não coincidem!");
+        alert("As senhas nÃ£o coincidem!");
         return;
       }
       if (senha.length < 6) {
@@ -1658,7 +1658,7 @@ document.addEventListener('DOMContentLoaded', () => {
           window.location.href = 'apelido.html'; 
         }
       } else {
-        alert("Erro: O Supabase não foi carregado corretamente.");
+        alert("Erro: O Supabase nÃ£o foi carregado corretamente.");
         btn.innerHTML = originalText;
       }
     });
